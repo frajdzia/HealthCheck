@@ -4,11 +4,12 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'main/css/home.css' %}">
+
 <h1>Testing home page</h1>
 <p>Home page</p>
 
 <!-- app-specific static file -->
-<link rel="stylesheet" href="{% static 'main/css/home.css' %}">
 
 <div class="custom-home-style">
     Test of app-specific CSS.

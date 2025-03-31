@@ -1,101 +1,52 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
     <title>{% block title %}Base{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/global.css' %}">
-</head>
-    <body class="hero-anime">
-        <div class="navigation-wrap bg-light start-header start-style">
-          <div class="container">
-            <div class="row">
-              <div>
-                <nav class="navbar navbar-light">      
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-      
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                      <li class="nav-item active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                        </div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Portfolio</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Agency</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                        </div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Journal</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                      </li>
-                    </ul>
-                  </div>
-      
-                </nav>
-              </div>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+  </head>
+  <body class="hero-anime">
+    <div class="navigation-wrap start-header start-style">
+      <nav class="navbar">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <div class="left-align">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Progress</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Help</a>
+              </li>
             </div>
-          </div>
-        </div>
-        <div class="section full-height">
-          <div class="absolute-center">
-            <div class="section">
-              <div class="container">
-                <div class="row">
-                  <div>
-                    <p>scroll for nav animation</p>
+            <div class="right-align">
+              <li>
+                <div class="theme-switch">
+                  <div id="switch">
+                    <div id="circle"></div>
                   </div>
                 </div>
-              </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Log Out</a>
+              </li>
             </div>
-            <div class="section mt-5">
-              <div class="container">
-                <div class="row">
-                  <div>
-                    <div id="switch">
-                      <div id="circle"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </ul>
         </div>
-        <div class="my-5 py-5">
-        </div>
-      
-        <!-- Link to page
-      ================================================== -->
-      
-<div class="container1">
-    {% block content %}{% endblock %}
-</div>
-<!-- jQuery (Required for Bootstrap) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="{% static 'js/main.js' %}"></script>
-</body>
+      </nav>
+    </div>
+{% block content %}{% endblock %}
+    <!-- jQuery (Required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
 </html>
