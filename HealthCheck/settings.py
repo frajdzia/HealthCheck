@@ -14,8 +14,13 @@ SECRET_KEY = 'django-insecure-1%w-!d1q1e%+onogmjzkuhxws0wds-&ujims7=-soa@l%=p@t=
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-ALLOWED_HOSTS = []
+
+# COOKIES SETTING
+CSRF_COOKIE_SECURE = False  # Set to False for development (http://)
+CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read the cookie
+CSRF_COOKIE_SAMESITE = 'Strict' 
 
 
 # Application definition
@@ -71,6 +76,17 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'healthcheckdb',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 # Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -102,7 +118,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = ""
 
 
 # Default primary key field type

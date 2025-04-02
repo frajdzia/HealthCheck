@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Testing home page</h1>
+  <p>Home page</p>
+
+  <div class="custom-home-style">
+    Test of app-specific CSS.
+  </div>
+{% endblock %}
