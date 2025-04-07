@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'admin/css/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+  <p>Admin page</p>
+
+  <div>
+    Test of app-specific CSS.
+  </div>
+{% endblock %}
