@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}Sign up{% endblock %}</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}"/>
+</head>
+
+<body>
+    <div class="SIGN-UP-PAGE">
+        <a href="login.html" class="sign-up">
+            <span class="no-account-text">Already have an account?</span>
+            <span class="signup-text">Login</span></a>
+        <a href="login.html" class="back-arrow"><img src="{% static 'authentication/images/vector-19.svg'%}" alt="back-to-login" class="arrow-img"></a>
+        <div class="div">
+            <form>
+                <input type="text" id="firstname" name="firstname" placeholder="First name" required>
+                <input type="text" id="lastname" name="lastname" placeholder="Last name" required>
+                <input type="text" id="email" name="email" placeholder="email" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <p class="password-req">At least 8 characters.</div>
+                <div class="dropdown-container">
+                    <select id="role" name="role" class="role-dropdown">
+                        <option value="" disabled selected>Select role</option>
+                        <option value="engineer">Engineer</option>
+                        <option value="team-leader">Team Leader</option>
+                        <option value="department-leader">Department Leader</option>
+                        <option value="senior-manager">Senior Manager</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                        <img src="{% static 'authentication/images/dropdownicon.svg'%}" alt="Dropdown Arrow" class="dropdown-arrow">
+                </div>
+                <button type="submit-login" class="submit-btn-sign-up">Sign Up</button>
+            </form>
+            <img class="sky-group-logo" src="{% static 'authentication/images/Sky_Group_logo_2020.png'%}"/>
+        </div>
+    </div>
+</body>
+
+</html>
