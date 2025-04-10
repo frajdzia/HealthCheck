@@ -8,7 +8,8 @@ from django.conf.urls.static import static
 from home import views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    #URL for admin page
+    path('admin/', admin.site.urls, name='admin'),
     
     # URL for home page
     path('', views.home, name='home'),
