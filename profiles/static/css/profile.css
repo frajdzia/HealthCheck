@@ -1,0 +1,110 @@
+.container {
+    width: 930px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-details-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.user-details-header img {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.user-details-header h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group.inline {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+    margin-bottom: 0;
+}
+
+.form-group.inline label {
+    display: block; 
+    margin-bottom: 5px;
+}
+
+.form-group.inline input {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.unchangeable {
+    font-size: 15px;
+    color: #888;
+    margin-top: 5px;
+    padding-left: 500px;
+}
+
+.form-group.inline input:last-child {
+    margin-right: 0;
+}
+
+.form-actions {
+    text-align: right;
+    margin-top: auto;
+}
+
+.form-actions button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-actions button:first-child {
+    background-color: #f0f0f0;
+    color: #333;
+    margin-right: 10px;
+}
+
+.form-actions button:last-child {
+    background-color: #007bff;
+    color: white;
+}
