@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext");
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap');
 
 :root[data-theme="light"] {
   --text: #061620;
@@ -19,8 +20,24 @@
   --highlight-rgb: 155, 137, 193;
 }
 
+.logo{
+  background: linear-gradient(120deg,var(--primary),var(--accent),var(--highlight));
+  background-clip:  text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  font-size: 25px;
+  padding: 5px 0 !important;
+  display: inline-block;
+  font-family: "Signika", sans-serif;
+  text-decoration: none;
+}
+
+.logo::selection{
+  background: none;
+}
+
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
   font-size: 16px;
   line-height: 24px;
   color: var(--text);
@@ -70,12 +87,7 @@ body {
   margin-bottom: 10px;
 }
 
-.navbar-brand img {
-  height: 28px;
-  filter: brightness(10%);
-  transition: all 0.3s ease-out;
-}
-.start-header.scroll-on .navbar-brand img {
+.start-header.scroll-on {
   height: 24px;
 }
 
@@ -167,6 +179,7 @@ body.hero-anime p {
   margin-right: 90px;
   display: flex;
   align-content: center;
+  align-items: center;
 }
 
 #switch {
@@ -187,6 +200,7 @@ body.hero-anime p {
   height: 26px;
   border-radius: 50%;
   background: var(--text);
+  left:-5px;
 }
 
 .switched {
@@ -212,6 +226,7 @@ body.hero-anime p {
 .right-align {
   display: flex;
   justify-content: right;
+  align-items: center;
 }
 
 .navbar-nav,
