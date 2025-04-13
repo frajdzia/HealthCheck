@@ -1,14 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" />
-        <title>Admin Profile</title>
-        <link rel="stylesheet" href="adminProfile.css" />
+        <title>{% block title %}Admin Profile{% endblock %}</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="{% static 'profiles/css/adminProfile.css' %}" />
     </head>
     <body>
         <header class="header">
-            <img src="images/sky-logo.webp" alt="Sky Logo" />
+            <img src="{% static 'profiles/images/sky-logo.webp' %}" alt="Sky Logo" />
             <nav>
                 <ul>
                     <li class="nav-item">
@@ -33,7 +33,7 @@
         <div class="container">
             <section class="user-details">
                 <div class="user-details-header">
-                    <img src="images/placeholder.jpg" alt="Profile Picture" class="placeholder" />
+                    <img src="{% static 'profiles/images/placeholder.jpg' %}" alt="Profile Picture" class="placeholder" />
                     <h2>User Details</h2>
                 </div>
                 <form>
