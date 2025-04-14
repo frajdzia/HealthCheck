@@ -1,40 +1,19 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
+
         <title>{% block title %}Admin Profile{% endblock %}</title>
         <meta charset="utf-8" />
+        {% block extra_head %}
         <link rel="stylesheet" href="{% static 'profiles/css/adminProfile.css' %}" />
-    </head>
-    <body>
-        <header class="header">
-            <img src="{% static 'profiles/images/sky-logo.webp' %}" alt="Sky Logo" />
-            <nav>
-                <ul>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Progress</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Help</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-linkLO" href="#">Log out</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        {%endblock%}
+        
+{% block content %}
 
         <div class="container">
             <section class="user-details">
                 <div class="user-details-header">
                     <img src="{% static 'profiles/images/placeholder.jpg' %}" alt="Profile Picture" class="placeholder" />
-                    <h2>User Details</h2>
+                    <h2>Admin Details</h2>
                 </div>
                 <form>
                     <div class="form-group inline">
@@ -66,5 +45,4 @@
                 </form>
             </section>
         </div>
-    </body>
-</html>
+{% endblock %}
