@@ -2,6 +2,6 @@ from django.contrib import admin
 
 # Register your models here.
 
-#username admin
+#username Admin
 #password Adminforwork
 #email admin@sky.com
