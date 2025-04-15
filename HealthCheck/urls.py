@@ -12,6 +12,8 @@ urlpatterns = [
     
     # URL for home page
     path('', include('home.urls')),
+
+    path('', include('profiles.urls')),
 ]
 
 # Serve static files during development
