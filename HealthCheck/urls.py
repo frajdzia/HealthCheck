@@ -1,18 +1,21 @@
 """ URL configuration for HealthCheck project. """
 from django.contrib import admin
 from django.urls import path, include
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from home import views
 
 urlpatterns = [
     #URL for admin page
     path('admin/', admin.site.urls, name='admin'),
-    # authentication page
-    path('', include('authentication.urls')),    
-    # home page
-    path('', include('home.urls')),
-    # profile page
-    path('', include('profiles.urls')),
+    
+    # URL for home page
+    path('home/', views.home, name='home'),
+
+    path('', include('authentication.urls')),
+
+    path ('', include('profiles.urls'))
 ]
 
 # Serve static files during development

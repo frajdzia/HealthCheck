@@ -1,27 +1,59 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{% block title %}Log in{% endblock %}</title>
+
+<head>
+    <title>Log In</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}" />
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="LOG-IN-PAGE">
-        <a href="signup.html" class="sign-up">
-        <span class="no-account-text">Don't have an account?</span> 
-        <span class="signup-text">Sign up</span></a>
-      <div class="div">
-        <form>
-            <input type="text" id="username" name="username" placeholder="Username" required>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-        </form>
-        <a href="teamprogress_SM.html">
-          <button type="button" class="submit-btn-login">Login</button>
+        <a href="{% url 'signup' %}" class="sign-up">
+            <span class="no-account-text">Don't have an account?</span>
+            <span class="signup-text">Sign up</span>
         </a>
-        <div class="forgot-password"><a href="forgetpassword.html">Forgot Password</a></div>
-        <img class="sky-group-logo" src="{% static 'authentication/images/Sky_Group_logo_2020.png'%}" />
-      </div>
+        <a href="{% url 'signup' %}" class="back-arrow">
+            <img src="{% static 'authentication/images/vector-19.svg' %}" alt="back-to-signup" class="arrow-img">
+        </a>
+
+        <div class="div">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-field">{{ form.username }}</div>
+                <div class="form-field">{{ form.password }}</div>
+
+                {% if form.errors %}
+                <ul class="error-list">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <button type="submit" class="submit-btn-login">Log in</button>
+            </form>
+
+            <div class="forgot-password">
+                <a href="{% url 'forgetpassword' %}">Forgot Password?</a>
+            </div>
+
+            <img class="sky-group-logo" src="{% static 'authentication/images/Sky_Group_logo_2020.png' %}" />
+        </div>
     </div>
-  </body>
+
+    <script type="text/javascript">
+        var homeUrl = "{% url 'home' %}";
+    </script>
+    <script src="{% static 'authentication/js/authentication.js' %}"></script>
+</body>
+
 </html>
