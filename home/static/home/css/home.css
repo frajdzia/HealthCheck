@@ -1,4 +1,60 @@
-.custom-home-style {
-    color: darkblue;
-    font-weight: bold;
+:root[data-theme="light"] {
+    --dropdown-bg: #e6f0f5;
+    --dropdown-hover: #d1e0f0;
+}
+
+:root[data-theme="dark"] {
+    --dropdown-bg: #1a2638;
+    --dropdown-hover: #2a3755;
+}
+
+.select-wrapper {
+    width: fit-content;
+    position: relative;
+    transition: all 200ms linear;
+}
+
+.select-wrapper .select {
+    background: var(--dropdown-bg);
+    padding: 5px 25px 5px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    width: 150px;
+    color: var(--text);
+    transition: transform 0.3s;
+}
+
+.select-wrapper .select:hover,
+.select-wrapper .select:focus {
+    background: var(--dropdown-hover);
+    transform: scale(1.02);
+}
+
+.select-wrapper .select:focus {
+    outline: none;
+}
+
+.select-wrapper .arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    height: 10px;
+    width: 15px;
+    fill: var(--text);
+    transform: translateY(-50%) rotate(-90deg);
+    transition: transform 0.3s;
+    pointer-events: none;
+}
+
+.select-wrapper .select:hover+.arrow,
+.select-wrapper .select:focus+.arrow {
+    transform: translateY(-50%) rotate(0deg);
+}
+
+.select-wrapper .select option {
+    background: var(--dropdown-bg);
+    color: var(--text);
 }
