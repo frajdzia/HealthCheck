@@ -1,6 +1,4 @@
-"""
-URL configuration for HealthCheck project.
-"""
+""" URL configuration for HealthCheck project. """
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -9,10 +7,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     #URL for admin page
     path('admin/', admin.site.urls, name='admin'),
-    
-    # URL for home page
+    # authentication page
+    path('', include('authentication.urls')),    
+    # home page
     path('', include('home.urls')),
-
+    # profile page
     path('', include('profiles.urls')),
 ]
 
