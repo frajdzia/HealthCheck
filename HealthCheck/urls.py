@@ -13,7 +13,9 @@ urlpatterns = [
     # URL for home page
     path('dashboard/', views.dashboard, name='dashboard'),
 
-    path('', include('authentication.urls'))
+    path('', include('authentication.urls')),
+
+    path('', include('profiles.urls'))
 ]
 
 # Serve static files during development
