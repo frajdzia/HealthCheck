@@ -13,11 +13,7 @@ urlpatterns = [
     # URL for home page
     path('home/', views.home, name='home'),
 
-    path('', include('authentication.urls')),
-  
-    path('', views.home, name='home'),
-
-    path('', include('profiles.urls')),
+    path('', include('authentication.urls'))
 ]
 
 # Serve static files during development

@@ -15,10 +15,6 @@
             <span class="no-account-text">Don't have an account?</span>
             <span class="signup-text">Sign up</span>
         </a>
-        <a href="{% url 'signup' %}" class="back-arrow">
-            <img src="{% static 'authentication/images/vector-19.svg' %}" alt="back-to-signup" class="arrow-img">
-        </a>
-
         <div class="div">
             <form method="POST">
                 {% csrf_token %}
