@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'authentication',
+    'widget_tweaks',
     'profiles',
 ]
 
@@ -127,3 +128,5 @@ STATIC_ROOT = ""
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'home'  # ensure that it will redirect to home.html after logging in

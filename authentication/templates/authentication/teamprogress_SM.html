@@ -1,13 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block title %}Team Progress - Senior Manager{% endblock %}</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}" />
-  </head>
-  <body>
-    <h1> TEAM PROGRESS PAGE</h1>
-  </body>
-</html>
+{% load widget_tweaks %}
+
+{% block title %} Team Progress - Senior Manager {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'authentication/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <h1>Team Progress - Senior Manager</h1>
+    <p class="lorem-ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor ligula felis, a posuere ante elementum et.
+        Proin sollicitudin dolor sit amet turpis facilisis, sit amet accumsan lectus tincidunt. Sed ut tortor id erat
+        pretium mollis non eget ante. Cras tincidunt diam ac efficitur tincidunt. Aenean sit amet orci sed purus iaculis
+        euismod nec in metus. Donec eget nibh ac magna cursus consectetur eget a tortor.
+    </p>
+</div>
+
+<div class="box-container-2">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="dropdown-section">
+            <div class="dropdown-field">
+                {{ form.team|add_class:"dropdown" }}
+            </div>
+            <div class="dropdown-field">
+                {{ form.department|add_class:"dropdown" }}
+            </div>
+            <div class="dropdown-field">
+                {{ form.duration|add_class:"dropdown" }}
+            </div>
+        </div>
+    </form>
+
+    <div class="box box1">
+        <h2>TEAM PROGRESS OVER TIME</h2>
+    </div>
+
+    <div class="box box2">
+        <h2>TEAM DETAILS</h2>
+    </div>
+</div>
+
+{% endblock %}
