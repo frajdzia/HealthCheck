@@ -1,6 +1,6 @@
 .container {
     width: 930px;
-    margin: 0 auto;
+    margin: 30px auto;
     background-color: white;
     padding: 30px;
     border: 1px solid #ddd;
@@ -65,7 +65,7 @@ form {
 }
 
 .form-group.inline label {
-    display: block; 
+    display: block;
     margin-bottom: 5px;
 }
 
