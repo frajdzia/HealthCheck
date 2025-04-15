@@ -54,7 +54,7 @@ class ForgetPasswordForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Username'}))
     phoneno = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}))
     new_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'New password'}))
-    code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Code'}))  # Optional
+    code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Code'}))
 
     def clean(self):
         cleaned_data = super().clean()

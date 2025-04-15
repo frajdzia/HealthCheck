@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     
     # URL for home page
-    path('home/', views.home, name='home'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 
     path('', include('authentication.urls'))
 ]

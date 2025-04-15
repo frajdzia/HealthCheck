@@ -22,7 +22,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             messages.success(request, f'Account created for {user.username}!')
-            return redirect('home')  # Make sure 'home' is defined in your URLs
+            return redirect('dashboard') 
         else:
             return render(request, 'authentication/signup.html', {'form': form})
     else:
@@ -34,7 +34,7 @@ class CustomLoginView(LoginView):
     template_name = 'authentication/login.html'
     authentication_form = CustomLoginForm
 
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard')
 
 def forget_password(request):
     if request.method == 'POST':
@@ -62,7 +62,6 @@ def team_progress(request):
     form = TeamProgressFilterForm(request.POST or None)
 
     if request.method == 'POST' and form.is_valid():
-        # handle form submission logic here
         pass
 
     if hasattr(user, 'role') and user.role == 'SM':
