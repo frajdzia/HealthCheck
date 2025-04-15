@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Voting{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
+
+{% block content %}  <h2>You are voting for team "{{ team.team_name }}"</h2>
+  {% for card in cards %}
+    <div>
+      <h3>Delivering Value (Card {{ card.id }})</h3>
+      <p>We select cap: <span style="color: red;">We feel ashamed...</span></p>
+      <p>We deliver cap: <span style="color: orange;">Our stakeholders hate...</span></p>
+      <p>We improve and try: <span style="color: yellow;">We are improving...</span></p>
+      <p>We deliver great stuff: <span style="color: green;">We are proud...</span></p>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="card_id" value="{{ card.id }}">
+        <label>How is the state of value?</label><br>
+        <input type="radio" name="state" value="1" required> Red
+        <input type="radio" name="state" value="2"> Amber
+        <input type="radio" name="state" value="3"> Green
+        <button type="submit">Vote</button>
+      </form>
+    </div>
+  {% endfor %}
+{% endblock %}
