@@ -28,7 +28,7 @@ class CustomUserCreationForm(UserCreationForm):
             ('team-leader', 'Team Leader'),
             ('department-leader', 'Department Leader'),
             ('senior-manager', 'Senior Manager'),
-            ('admin', 'Admin'),
+            
         ],
         required=True,
         widget=forms.Select(attrs={'class': 'form-input'})
