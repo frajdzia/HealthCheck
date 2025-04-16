@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Department Leader</title>
+  <link rel="stylesheet" href="{% static 'department_senior/style-sheet.css' %}" />
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>DASHBOARD - DEPARTMENT LEADER</h2>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <img src="{% static 'department_senior/images/dashboardimg.png' %}" alt="Logo" class="logo" />
+        
+      </header>
+
+      <!-- Top Section (Image Placeholder + Welcome) -->
+      <section class="top-section">
+        <div class="image-placeholder">Picture</div>
+        <p class="welcome-text">
+          Welcome to your dashboard area! This page allows you to see the department overview, team progress over time, and detailed team reports.
+        </p>
+      </section>
+
+      <!-- Content Cards -->
+      <section class="card-section">
+        <div class="card">
+          <h3>Department Overview</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula mauris vel augue consequat, eu tincidunt odio vehicula...
+          </p>
+        </div>
+        <div class="card">
+          <h3>Team Progress</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula mauris vel augue consequat, eu tincidunt odio vehicula...
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

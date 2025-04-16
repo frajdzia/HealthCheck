@@ -3,7 +3,7 @@ Django settings for HealthCheck project.
 
 """
 
-from pathlib import Path
+from pathlib import Path 
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'home',
     'authentication',
     'widget_tweaks',
+    'department_senior',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
