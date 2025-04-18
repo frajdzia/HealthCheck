@@ -1,6 +1,18 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Profile{% endblock %} {% block extra_css %}
-<link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}" />
-{% endblock %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Profile{% endblock %} 
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}" />
+{% endblock %}
+
+{% block content %} {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="message">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 <div class="container">
     <section class="user-details">
@@ -12,7 +24,6 @@
         <form method="POST">
             {% csrf_token %}
 
-            <!-- Name fields in one row using .form-group.inline -->
             <div class="form-group inline">
                 <div class="form-group">
                     <label for="{{ form.first_name.id_for_label }}">First name</label>
@@ -40,7 +51,7 @@
                 <small class="form-text text-muted">Leave blank if you don't want to change it.</small>
             </div>
 
-            <!-- Role and Department (readonly) -->
+            <!-- Role (readonly) -->
             <div class="form-group">
                 <label for="role">Role</label>
                 <input type="text" id="role" value="{{ user.profile.role }}" class="form-input" disabled />
@@ -49,12 +60,12 @@
 
             <div class="form-actions">
                 <button type="button" id="editButton">Edit</button>
-                <button type="submit" id="saveButton" disabled>Save Changes</button>
+                <button type="submit" id="saveButton">Save Changes</button>
             </div>
         </form>
     </section>
 </div>
 
-{% block extra_js %}
-<script src="{% static 'profiles/js/profile.js' %}"></script>
-{% endblock %} {% endblock %}
+{% endblock %} {% block extra_js %}
+    <script src="{% static 'profiles/js/profile.js' %}"></script>
+{% endblock %}
