@@ -15,17 +15,9 @@ urlpatterns = [
 
     path('', include('authentication.urls')),
 
-<<<<<<< HEAD
-    
     path('', include('department_senior.urls')),
-    
 
-
-    path('', include('profiles.urls'))
-
-=======
-    path('', include('profiles.urls'))
->>>>>>> 2994efd0d86c1ddea79b6554c49a6165bc1a3b74
+    path('', include('profiles.urls')),
 ]
 
 # Serve static files during development
