@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     saveButton.style.display = "none";
 
     editButton.addEventListener("click", () => {
-        console.log(editButton);
         formFields.forEach((field) => {
             if (field.id !== "role") {
                 field.disabled = false; // all other fields apart from role not disabled
