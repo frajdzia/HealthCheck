@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Senior Manager Dashboard{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'department_senior/css/dashboards.css' %}" />
+{% endblock %}
+{% block content %}
+  
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Department Leader</title>
+  <link rel="stylesheet" href="{% static 'department_senior/style-sheet.css' %}" />
+</head>
+<body>
+  <h1>Senior Manager Overview</h1>
+  <div class="dashboard-container">
+  
+
+    <!-- Main -->
+    <main class="main-content">
+      
+    
+      <!-- Top Section (Image Placeholder + Welcome) -->
+      <section class="top-section">
+        <div class="image-placeholder"><img src="{% static 'department_senior/images/dashboard_SM.png' %}" alt="Dashboard" class="dashboard-image" /></div>
+        <p class="welcome-text">
+          Welcome to your dashboard area! This page allows you to see the department overview, team progress over time, and detailed team reports.
+        </p>
+      </section>
+
+      <!-- Content Cards -->
+      <section class="card-section">
+        <a href="{% url 'overview_SM' %}" class="card-link">
+        <div class="card">
+          <h3>Department Overview</h3>
+        </a>
+          <p>
+            check the department overview!
+          </p>
+        </div>
+     
+
+        <div class="card">
+          <a href="{% url 'teamprogress_SM' %}" class="card-link">
+          <h3>Team Progress</h3>
+        </a>
+          <p>
+            check the  progress of a team!
+          </p>
+        </div>
+      
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
+{% endblock %}

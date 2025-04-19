@@ -1,0 +1,73 @@
+.rectangle-57,
+.rectangle-57 * {
+  box-sizing: border-box;
+}
+.rectangle-57 {
+  background: #ffffff;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.5);
+  border-width: 1px;
+  opacity: 0.5;
+  height: 300px;
+  position: relative;
+}
+
+
+
+
+
+
+label {
+    display: block;
+    font-size: 14px;
+    color: #5f6368;
+    margin-bottom: 8px;
+    font-weight: 500;
+   
+  }
+  
+  select {
+    width: 20%;
+    padding: 10px 12px;
+    border: 10px solid #ccc;
+    border-radius: 7px;
+    background-color: white;
+    font-size: 16px;
+    color: #686b72;
+    font-family: inherit;
+    appearance: none;          
+    -webkit-appearance: none;   
+    -moz-appearance: none;      
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+   
+  }
+
+  .dropdown-container {
+    top: -280px;
+    position: relative;
+    margin-left: 10px;
+  }
+
+
+
+  .dropdown-row {
+    display: flex;
+    justify-content: space-between; 
+    gap: 20px; 
+    padding: 20px;
+  }
+  
+  .dropdown-container select {
+    width: 200px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #898686;
+    border-radius: 6px;
+  }
+
+  .department-overview  {
+    text-align: center;
+  }

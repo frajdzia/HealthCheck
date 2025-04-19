@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Senior ManagerLeader Overview{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'department_senior/css/overviews.css' %}" />
+{% endblock %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Department Overview</title>
+
+</head>
+
+<body>
+  <h1>Senior Manager Overview</h1>
+  <!-- Additional content goes here -->
+
+  <div class="department-overview">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula
+    mauris vel augue consequat, eu tincidunt odio vehicula. Nullam tincidunt erat
+    at ipsum bibendum, et pharetra sapien facilisis. Aliquam erat volutpat. Duis
+    condimentum, arcu ac facilisis facilisis, lectus nunc suscipit sapien, at
+    sodales sapien magna nec justo. Sed euismod, risus nec vulputate tincidunt,
+    eros urna interdum magna, a tempor nulla libero non ipsum. Integer condimentum
+    felis a dui varius, sit amet euismod orci vulputate.
+    <br />
+    <br />
+    <br />
+    Allows the department manager to see all teams and departments in summaryor and their progress over time!
+  </div>
+
+
+  <div class="rectangle-57"></div>
+
+  <form>
+    {% csrf_token %}
+    <div class="dropdown-row">
+      <div class="dropdown-container">
+        <select id="deparment" name="department">
+          <option value="" disabled selected hidden>Select Department</option>
+          <option value="department_leader"> Department 1</option>
+          <option value="senior_manager">Department 2</option>
+        </select>
+
+      </div>
+
+
+
+
+      <div class="dropdown-container">
+        <select id="duration" name="duration">
+          <option value="" disabled selected hidden>Select Duration</option>
+          <option value="department_leader"> Duration 1</option>
+          <option value="senior_manager"> Duration 2</option>
+        </select>
+
+      </div>
+    </div>
+  </form>
+
+</body>
+
+</html>
+{% endblock %}

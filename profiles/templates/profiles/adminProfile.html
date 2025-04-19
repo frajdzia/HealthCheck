@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-        <title>{% block title %}Admin Profile{% endblock %}</title>
-        <meta charset="utf-8" />
-        {% block extra_head %}
-        <link rel="stylesheet" href="{% static 'profiles/css/adminProfile.css' %}" />
-        {%endblock%}
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/adminProfile.css' %}" />
+{% endblock %}
+
         
 {% block content %}
 

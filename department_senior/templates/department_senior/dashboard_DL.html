@@ -1,4 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
+{% block title %}Department Leader Dashboard{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'department_senior/css/dashboards.css' %}" />
+{% endblock %}
+{% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,26 +12,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - Department Leader</title>
-  <link rel="stylesheet" href="{% static 'department_senior/style-sheet.css' %}" />
 </head>
 <body>
+  <h1>Department Leader Overview</h1>
   <div class="dashboard-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <h2>DASHBOARD - DEPARTMENT LEADER</h2>
-    </aside>
+  
 
     <!-- Main -->
     <main class="main-content">
-      <!-- Header -->
-      <header class="header">
-        <img src="{% static 'department_senior/images/dashboardimg.png' %}" alt="Logo" class="logo" />
-        
-      </header>
+      
+    
+      <title>Department Leader Dashboard</title>
+  
 
       <!-- Top Section (Image Placeholder + Welcome) -->
       <section class="top-section">
-        <div class="image-placeholder">Picture</div>
+        <div class="image-placeholder"><img src="{% static 'department_senior/images/dashboardimg.png' %}" alt="Dashboard" class="dashboard-image" /></div>
         <p class="welcome-text">
           Welcome to your dashboard area! This page allows you to see the department overview, team progress over time, and detailed team reports.
         </p>
@@ -33,20 +35,27 @@
 
       <!-- Content Cards -->
       <section class="card-section">
+        <a href="{% url 'overview_DL' %}" class="card-link">
         <div class="card">
           <h3>Department Overview</h3>
+        </a>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula mauris vel augue consequat, eu tincidunt odio vehicula...
+            check the department overview!
           </p>
         </div>
+     
+
         <div class="card">
           <h3>Team Progress</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula mauris vel augue consequat, eu tincidunt odio vehicula...
+            check the  progress of a team!
           </p>
         </div>
+      
       </section>
     </main>
   </div>
 </body>
+
 </html>
+{% endblock %}
