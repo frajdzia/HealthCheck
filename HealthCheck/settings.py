@@ -35,10 +35,6 @@ INSTALLED_APPS = [
     'home',
     'authentication',
     'widget_tweaks',
-    'department_senior',
-    'profiles',
-    
-
 ]
 
 MIDDLEWARE = [
@@ -133,4 +129,7 @@ STATIC_ROOT = ""
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'dashboard'  # ensure that it will redirect to home.html after logging in
+# LOGIN_REDIRECT_URL = '/dashboard'  # ensure that it will redirect to home.html after logging in
+
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard/'

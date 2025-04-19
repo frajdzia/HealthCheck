@@ -1,6 +1,10 @@
 .container {
     width: 930px;
+<<<<<<< HEAD
     margin: 30px auto;
+=======
+    margin: 90px auto 30px auto;
+>>>>>>> 2994efd0d86c1ddea79b6554c49a6165bc1a3b74
     background-color: white;
     padding: 30px;
     border: 1px solid #ddd;
