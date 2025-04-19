@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'home',
     'authentication',
     'widget_tweaks',
+    'profiles',
+    'department_senior',
 ]
 
 MIDDLEWARE = [
