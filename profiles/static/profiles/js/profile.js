@@ -1,5 +1,3 @@
-console.log("JS loaded!");
-
 document.addEventListener("DOMContentLoaded", function () {
     const editButton = document.getElementById("editButton");
     const saveButton = document.getElementById("saveButton");
