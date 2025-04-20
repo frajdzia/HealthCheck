@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
-{% load static %}
-{% load widget_tweaks %}
+{% extends 'base.html' %}   <!--to inherit the navigation bar from base.html-->
+{% load static %}           <!--load static files to use static URL for CSS, JS, and images-->
+{% load widget_tweaks %}    <!--load widget tweaks for dropdowns and modify the form fields-->
 
-{% block title %} Team Progress - Senior Manager {% endblock %}
+{% block title %} Team Progress - Senior Manager {% endblock %}     <!--override the title from the base.html-->
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'authentication/css/style.css' %}">
+{% block extra_css %} <!--override the css file from the base.html-->
+<link rel="stylesheet" href="{% static 'authentication/css/style.css' %}">  <!--link to custom css called  style.css for styling -->
 {% endblock %}
 
 {% block content %}
@@ -20,27 +20,27 @@
     </p>
 </div>
 
-<div class="box-container-2">
-    <form method="POST">
-        {% csrf_token %}
+<div class="box-container-2">   <!--container for the team progress overall and team details -->
+    <form method="POST">        <!--form method POST so it wouldnt show in the URL but still received on the next page-->
+        {% csrf_token %}        <!--CSRF token that is required for POST forms in django to ensure security-->
         <div class="dropdown-section">
             <div class="dropdown-field">
-                {{ form.team|add_class:"dropdown" }}
+                {{ form.team|add_class:"dropdown" }}        <!--create dropdown for the team with dropdown style from the css file-->
             </div>
             <div class="dropdown-field">
-                {{ form.department|add_class:"dropdown" }}
+                {{ form.department|add_class:"dropdown" }}  <!--create dropdown for the department with dropdown style from the css file-->
             </div>
             <div class="dropdown-field">
-                {{ form.duration|add_class:"dropdown" }}
+                {{ form.duration|add_class:"dropdown" }}    <!--create dropdown for the duration with dropdown style from the css file-->
             </div>
         </div>
     </form>
 
-    <div class="box box1">
+    <div class="box box1">      <!--first box inside the box container for the team progress over time-->
         <h2>TEAM PROGRESS OVER TIME</h2>
     </div>
 
-    <div class="box box2">
+    <div class="box box2">      <!--second box inside the box container for the team details-->
         <h2>TEAM DETAILS</h2>
     </div>
 </div>

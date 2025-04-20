@@ -1,11 +1,11 @@
 body {
-    margin: 0;
+    margin: 0; /* remove default margin and padding */
     padding: 0;
     font-family: Arial, sans-serif;
 }
 
 
-.SIGN-UP-PAGE,
+.SIGN-UP-PAGE,  /*layout for the signup.html, forgotpassword.html, and login.html */
 .FORGOT-PASSWORD-PAGE,
 .LOG-IN-PAGE {
     background-color: #ffffff;
@@ -20,7 +20,7 @@ body {
 }
 
 
-.LOG-IN-PAGE .div,
+.LOG-IN-PAGE .div,  /*styling for form wrapper in the login.html, signup.html, and forgotpassword.html */
 .SIGN-UP-PAGE .div,
 .FORGOT-PASSWORD-PAGE .div {
     background-color: #ffffff;
@@ -31,7 +31,7 @@ body {
     text-align: center;
 }
 
-.box-container {
+.box-container {    /*layour flexbox for code input and retry button */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,7 +42,7 @@ body {
     margin-top: -2%;
 }
 
-input[type="text"],
+input[type="text"], /*input boxes and button styles*/
 input[type="password"],
 input[type="email"],
 input[type="number"],
@@ -62,7 +62,7 @@ textarea,
 }
 
 
-.form-input {
+.form-input {   /*input for form which is the same as above */
     padding: 11px;
     font-size: 13px;
     border: 2px solid #C5C5C5;
@@ -74,11 +74,11 @@ textarea,
     box-sizing: border-box;
 }
 
-.form-field {
+.form-field {   /*spacing between each forms*/
     margin-bottom: 20px;
 }
 
-input[type="text"]#code {
+input[type="text"]#code {   /*style for verification code input */
     flex-grow: 1;
     padding: 11px;
     font-size: 13px;
@@ -88,7 +88,7 @@ input[type="text"]#code {
     box-sizing: border-box;
 }
 
-.retry-btn {
+.retry-btn {    /*style and placement for retry button*/
     padding: 9px;
     font-size: 13px;
     border: 2px solid #C5C5C5;
@@ -100,11 +100,11 @@ input[type="text"]#code {
     box-sizing: border-box;
 }
 
-.retry-btn:hover {
+.retry-btn:hover {  /*changing the color when hovering over the retry button */
     background-color: #f0f0f0;
 }
 
-.SIGN-UP-PAGE .sky-group-logo {
+.SIGN-UP-PAGE .sky-group-logo { /*sky logo styling in the signup.html*/
     position: absolute;
     width: 148px;
     height: 91px;
@@ -114,7 +114,7 @@ input[type="text"]#code {
     object-fit: cover;
 }
 
-.FORGOT-PASSWORD-PAGE .sky-group-logo {
+.FORGOT-PASSWORD-PAGE .sky-group-logo { /*sky logo styling in the forgotpassword.html*/
     position: absolute;
     width: 148px;
     height: 91px;
@@ -124,7 +124,7 @@ input[type="text"]#code {
     object-fit: cover;
 }
 
-.LOG-IN-PAGE .sky-group-logo {
+.LOG-IN-PAGE .sky-group-logo {  /*sky logo styling in the login.html*/
     position: absolute;
     width: 148px;
     height: 91px;
@@ -134,20 +134,20 @@ input[type="text"]#code {
     object-fit: cover;
 }
 
-.SIGN-UP-PAGE .forgot-password,
+.SIGN-UP-PAGE .forgot-password, /*forgot password link in the signup.html and login.html*/
 .LOG-IN-PAGE .forgot-password {
     font-size: 13px;
     text-decoration: underline;
     color: #C5C5C5;
 }
 
-.submit-btn-login {
+.submit-btn-login { /*login button in the login.html*/
     background-color: #3936FF;
     color: white;
     cursor: pointer;
 }
 
-.submit-btn-sign-up {
+.submit-btn-sign-up { /*signup button in the signup.html*/
     padding: 12px;
     background-color: #3936FF;
     color: white;
@@ -162,11 +162,11 @@ input[type="text"]#code {
 }
 
 .submit-btn-sign-up:hover,
-.submit-btn-login:hover {
+.submit-btn-login:hover {   /*changing color when hovering over the login button in the login.html and signup button in the signup.html*/
     background-color: #2a2ac0;
 }
 
-.sign-up {
+.sign-up {  /*top right signup link in the signup.html*/
     position: absolute;
     top: 20px;
     right: 20px;
@@ -185,7 +185,7 @@ input[type="text"]#code {
     color: #2a2ac0;
 }
 
-.error-list {
+.error-list {   /*error list when inputing incorrectly*/
     color: red;
     list-style-type: none;
     padding: 0;
@@ -196,7 +196,7 @@ input[type="text"]#code {
     font-size: 12px;
 }
 
-.password-req {
+.password-req { /*password hint when user fails to satisfy the requirements*/
     font-size: 12px;
     color: #C5C5C5;
     text-align: left;
@@ -204,7 +204,7 @@ input[type="text"]#code {
     margin-left: 135px;
 }
 
-.back-arrow {
+.back-arrow {   /*arrow to go back to previous page on the top left corner */
     position: absolute;
     top: 20px;
     left: 20px;
@@ -217,11 +217,11 @@ input[type="text"]#code {
 
 }
 
-.back-arrow:hover .arrow-img {
+.back-arrow:hover .arrow-img { /*make opacity dim when hovering over the back arrow*/
     opacity: 0.5;
 }
 
-.dropdown-container {
+.dropdown-container { /*container for the dropdowns, custom styling*/
     position: relative;
     width: 100%;
     max-width: 300px;
@@ -230,7 +230,7 @@ input[type="text"]#code {
     margin-bottom: 2.5%;
 }
 
-.role-dropdown {
+.role-dropdown { /*dropdown for the roles*/
     padding: 11px;
     font-size: 13px;
     border: 2px solid #C5C5C5;
@@ -242,7 +242,7 @@ input[type="text"]#code {
     box-sizing: border-box;
 }
 
-.dropdown-arrow {
+.dropdown-arrow { /*an arrow in the dropdown for easy understanding*/
     position: absolute;
     right: 15px;
     top: 50%;
@@ -252,7 +252,7 @@ input[type="text"]#code {
     pointer-events: none;
 }
 
-.main-content {
+.main-content { /*main content padding in the teamprogress_SM.html*/
     padding-top: 100px;
     padding-left: 100px;
     padding-right: 20px;
@@ -260,7 +260,7 @@ input[type="text"]#code {
 }
 
 
-h1 {
+h1 {    /*font style for h1*/
     font-size: 40px;
     color: #1d1d1d;
     margin-bottom: 20px;
@@ -269,7 +269,7 @@ h1 {
 }
 
 
-.lorem-ipsum {
+.lorem-ipsum { /*paragraph styling*/
     font-size: 18px;
     color: #555;
     line-height: 1.6;
@@ -280,7 +280,7 @@ h1 {
 }
 
 
-.box-container-2 {
+.box-container-2 { /*container for ggrouped boxes in the teamprogress_SM.html*/
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -294,20 +294,20 @@ h1 {
     border-radius: 10px;
 }
 
-.dropdown-section {
+.dropdown-section { /*section where there is multiple dropdowns*/
     display: flex;
     justify-content: space-between;
     gap: 20px;
     width: 100%;
 }
 
-.dropdown-field {
+.dropdown-field { /*wrappers for individual dropdowns*/
     margin-bottom: 20px;
     flex-grow: 1; 
 }
 
 
-.dropdown {
+.dropdown { /*dropdown styling*/
     padding: 12px;
     font-size: 16px;
     border: 2px solid #C5C5C5;
@@ -317,7 +317,7 @@ h1 {
     box-sizing: border-box;
 }
 
-.box {
+.box { /*box styling for content display*/
     padding: 35px;
     background-color: #f1f1f1;
     border-radius: 8px;
@@ -331,25 +331,25 @@ h1 {
 }
 
 
-.box1 {
+.box1 { /*first box in the box-container*/
     background-color: #f3f3f3;
     height: 350px;
 }
 
 
-.box2 {
+.box2 { /*second box in the box-container*/
     background-color: #f3f3f3;
     height: 350px;
 }
 
-.box h2 {
+.box h2 { /*styling for h2 in the box*/
     font-size: 26px;
     color: #a2a2a2;
     margin-bottom: 15px;
     text-align: center;
 }
 
-.box p {
+.box p {    /*paragraph styling in the box*/
     font-size: 18px;
     color: #F3F3F3;
 }

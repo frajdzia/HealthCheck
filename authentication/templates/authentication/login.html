@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} <!--load static files to use static URL for CSS, JS, and images-->
 
 <!DOCTYPE html>
 <html>
@@ -6,50 +6,50 @@
 <head>
     <title>Log In</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}" /> <!--link to custom css called  style.css for styling -->
 </head>
 
 <body>
     <div class="LOG-IN-PAGE">
-        <a href="{% url 'signup' %}" class="sign-up">
+        <a href="{% url 'signup' %}" class="sign-up"> <!--anchor to sigup.html when clicking on the sign up button-->
             <span class="no-account-text">Don't have an account?</span>
-            <span class="signup-text">Sign up</span>
+            <span class="signup-text">Sign up</span> 
         </a>
         <div class="div">
-            <form method="POST">
-                {% csrf_token %}
+            <form method="POST"> <!--form method POST so it wouldnt show in the URL but still received on the next page-->
+                {% csrf_token %}    <!--CSRF token that is required for POST forms in django to ensure security-->
 
-                <div class="form-field">{{ form.username }}</div>
-                <div class="form-field">{{ form.password }}</div>
+                <div class="form-field">{{ form.username }}</div>   <!--load a field for the username input field-->
+                <div class="form-field">{{ form.password }}</div>   <!--load a field for the password input field-->
 
                 {% if form.errors %}
-                <ul class="error-list">
+                <ul class="error-list">     <!--give error if form is not loaded properly-->
                     {% for field in form %}
                         {% for error in field.errors %}
-                            <li>{{ error }}</li>
+                            <li>{{ error }}</li>    <!--give error individually on forms-->
                         {% endfor %}
                     {% endfor %}
                     {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
+                        <li>{{ error }}</li> <!--give error if form is tied to specific fields-->
                     {% endfor %}
                 </ul>
                 {% endif %}
 
-                <button type="submit" class="submit-btn-login">Log in</button>
+                <button type="submit" class="submit-btn-login">Log in</button> <!--submit button to login-->
             </form>
 
             <div class="forgot-password">
-                <a href="{% url 'forgetpassword' %}">Forgot Password?</a>
+                <a href="{% url 'forgetpassword' %}">Forgot Password?</a> <!--forgot password link which will go to forgetpassword.html-->
             </div>
 
-            <img class="sky-group-logo" src="{% static 'authentication/images/Sky_Group_logo_2020.png' %}" />
+            <img class="sky-group-logo" src="{% static 'authentication/images/Sky_Group_logo_2020.png' %}" /> <!--sky logo-->
         </div>
     </div>
 
     <script type="text/javascript">
-        var homeUrl = "{% url 'dashboard' %}";
+        var homeUrl = "{% url 'dashboard' %}"; //variable homeUrl will redirect users to the home page
     </script>
-    <script src="{% static 'authentication/js/authentication.js' %}"></script>
+    <script src="{% static 'authentication/js/authentication.js' %}"></script> <!--link to custom js file -->
 </body>
 
 </html>

@@ -3,7 +3,7 @@ from authentication import views as auth_views
 from authentication.views import CustomLoginView
 
 urlpatterns =[
-    #URL for login page
+    #URL for login page, users will be directed to the login.html when users run the server
     path('', CustomLoginView.as_view(), name='login'),
 
     #URL for signup page

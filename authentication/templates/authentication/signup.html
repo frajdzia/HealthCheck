@@ -1,17 +1,17 @@
-{% load static %}
+{% load static %}       <!--load static files to use static URL for CSS, JS, and images-->
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 
 <head>
     <title>Sign Up</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}" />    <!--link to custom css called  style.css for styling -->
 </head>
 
 <body>
     <div class="SIGN-UP-PAGE">
-        <a href="{% url 'login' %}" class="sign-up">
+        <a href="{% url 'login' %}" class="sign-up"> <!--anchor to login.html when clicking on the login button-->
             <span class="no-account-text">Already have an account?</span>
             <span class="signup-text">Login</span>
         </a>
@@ -20,39 +20,39 @@
         </a>
 
         <div class="div">
-            <form method="POST">
-                {% csrf_token %}
+            <form method="POST">        <!--form method POST so it wouldnt show in the URL but still received on the next page-->
+                {% csrf_token %}        <!--CSRF token that is required for POST forms in django to ensure security-->
 
-                <div class="form-field">{{ form.first_name }}</div>
-                <div class="form-field">{{ form.last_name }}</div>
-                <div class="form-field">{{ form.email }}</div>
-                <div class="form-field">{{ form.username }}</div>
-                <div class="form-field">{{ form.password1 }}</div>
-                <div class="form-field">{{ form.password2 }}</div>
-                <div class="form-field">{{ form.role }}</div>
+                <div class="form-field">{{ form.first_name }}</div>     <!--load a field for the first name input field-->
+                <div class="form-field">{{ form.last_name }}</div>      <!--load a field for the last name input field-->
+                <div class="form-field">{{ form.email }}</div>          <!--load a field for the email input field-->
+                <div class="form-field">{{ form.username }}</div>       <!--load a field for the username input field-->
+                <div class="form-field">{{ form.password1 }}</div>      <!--load a field for the password input field-->
+                <div class="form-field">{{ form.password2 }}</div>      <!--load a field for the password confirmation input field-->
+                <div class="form-field">{{ form.role }}</div>           <!--load a field for the role input field-->
 
                 <!-- Display any form errors -->
                 {% if form.errors %}
-                <ul class="error-list">
+                <ul class="error-list">     <!--give error if form is not loaded properly-->
                     {% for field in form %}
                     {% for error in field.errors %}
-                    <li>{{ error }}</li>
+                    <li>{{ error }}</li>    <!--give error individually on forms-->
                     {% endfor %}
                     {% endfor %}
                 </ul>
                 {% endif %}
 
-                <button type="submit" class="submit-btn-sign-up">Sign up</button>
+                <button type="submit" class="submit-btn-sign-up">Sign up</button>       <!--submit button to signup-->
             </form>
         </div>
 
-        <img class="sky-group-logo" src="{% static 'authentication/images/Sky_Group_logo_2020.png' %}" />
+        <img class="sky-group-logo" src="{% static 'authentication/images/Sky_Group_logo_2020.png' %}" />   <!--sky logo-->
     </div>
 
     <script type="text/javascript">
-        var homeUrl = "{% url 'dashboard' %}";
+        var homeUrl = "{% url 'dashboard' %}";      //variable homeUrl will redirect users to the home page
     </script>
-    <script src="{% static 'authentication/js/authentication.js' %}"></script>
+    <script src="{% static 'authentication/js/authentication.js' %}"></script>  <!--link to custom js file -->
 
 </body>
 
