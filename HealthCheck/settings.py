@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'profiles',
     'department_senior',
+    'adminhealthcheck',
 ]
 
 MIDDLEWARE = [
