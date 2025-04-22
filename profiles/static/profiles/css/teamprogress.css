@@ -1,0 +1,58 @@
+h1 {
+    padding-top: 20px;
+}
+
+.intro {
+    text-align: left;
+    font-size: larger;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1500px;
+}
+
+.team-progress-box {
+    background: #ffffff;
+    padding: 40px;
+    border: 1px solid #ddd;
+    margin-top: 40px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dropdowns {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+select {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 15px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: #a0a0a0;
+}
+
+.inner-box {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 30px;
+    height: 200px;
+    color: #777;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

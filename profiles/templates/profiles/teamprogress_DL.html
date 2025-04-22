@@ -1,0 +1,49 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load widget_tweaks %} 
+
+{% block title %} Team Progress - Department Leader {%endblock %} 
+
+{% block extra_css%}
+    <link rel="stylesheet" href="{% static 'profiles/css/teamprogress.css' %}" />
+{% endblock %} 
+
+{% block content %}
+
+<div class="main">
+    <h1>Team Progress - Department Leader</h1>
+    <p class="intro">
+        Welcome to your Team Progress Dashboard – your central space as a department leader to stay in tune with how your teams
+        are progressing over time. This dashboard has been designed to give you a clear, high-level view of all the moving parts
+        within your department, offering a card for each team or an overall summary depending on what works best for your needs.
+        This tool is intended to enhance your ability to make informed decisions, ensuring that you stay aligned with the broader
+        goals of the organization while overseeing the ongoing development within your own department. The dashboard is structured
+        to support you in both strategic planning and day-to-day management, empowering you to lead effectively.
+    </p>
+</div>
+
+<div class="team-progress-box">
+        <div class="dropdowns">
+            <select id="team-select">
+                <option selected disabled>Select team</option>
+                <option>Team 1</option>
+                <option>Team 2</option>
+                <option>Team 3</option>
+                <option>Team 4</option>
+            </select>
+
+            <select id="duration-select">
+                <option selected disabled>Select duration</option>
+                <option>1 month</option>
+                <option>3 month</option>
+                <option>6 months</option>
+            </select>
+        </div>
+
+        <div class="inner-box">
+            TEAM PROGRESS OVER TIME<br>
+            <small>- Summary of each card -</small>
+        </div>
+    </div>
+</div>
+{% endblock %}
