@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Admin Dashboard{% endblock %}
+
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'adminhealthcheck/css/admin.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<!--Navbar will go here-->
+
+
+  <div class="dashboard-container">
+    <main class="main-content">
+
+
+       <!-- Page Title -->
+  <h2 class="page-title">Admin Dashboard</h2>
+
+
+        <!--Image -->
+        <div class="top-image">
+          <img src="{% static 'adminhealthcheck/images/admindash.jpg' %}" alt="Dashboard Image">
+        </div>
+
+
+         <!-- Button -->
+      <div class="main-button">
+    <a href="{% url 'admin:index' %}"><button>Open Admin Dashboard</button></a>
+      </div>
+   
+   
+<!-- System Overview -->
+<h3>System Overview</h3>
+<div class="dashboard-cards">
+  <div class="card">Teams: {{ team_count }}</div>
+  <div class="card">Users: {{ user_count }}</div>
+  <div class="card">Cards: {{ card_count }}</div>
+  <div class="card">Sessions: {{ session_count }}</div>
+</div>
+
+
+</main>
+</div>
+{% endblock %}

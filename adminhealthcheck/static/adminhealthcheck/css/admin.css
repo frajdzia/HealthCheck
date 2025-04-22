@@ -1,0 +1,137 @@
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  /* Layout Container */
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: #f4f6f9;
+  }
+  
+  
+  /* Page Title */
+  .page-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /*Image */
+  .top-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .top-image img {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  /* Admin Panel Button */
+  .main-button {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  
+  .main-button a {
+    text-decoration: none;
+  }
+  
+  
+  button {
+    --color: #560bad;
+    font-family: inherit;
+    width: 220px;
+    height: 2.6em;
+    line-height: 2.5em;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid var(--color);
+    transition: color 0.5s;
+    z-index: 1;
+    font-size: 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    color: var(--color);
+    background: transparent;
+    text-align: center;
+  }
+  
+  
+  button:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+    top: 100%;
+    left: 100%;
+    transition: all 0.7s;
+  }
+  
+  
+  button:hover {
+    color: #fff;
+  }
+  
+  
+  button:hover:before {
+    top: -30px;
+    left: -30px;
+  }
+  
+  
+  button:active:before {
+    background: #3a0ca3;
+    transition: background 0s;
+  }
+  
+  
+  /* System Overview Section */
+  .main-content h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #444;
+  }
+  
+  
+  .dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  
+  .card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 150px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
