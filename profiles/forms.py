@@ -30,3 +30,18 @@ class UserUpdateForm(UserChangeForm):
         for field in self.fields.values():
             if field.widget.attrs.get('id') != 'role':
                 field.widget.attrs['disabled'] = 'disabled'
+
+class TeamProgressFilterForm(forms.Form):       
+    TEAM_CHOICES = [
+        ('team1', 'Team 1'),
+        ('team2', 'Team 2'),
+        ('team3', 'Team 3'),
+        ('team4', 'Team 4'),
+    ]
+    DURATION_CHOICES = [
+        ('1m', '1 Month'),
+        ('6m', '6 Months'),
+        ('1y', '1 Year'),
+    ]
+    team = forms.ChoiceField(choices=TEAM_CHOICES)
+    duration = forms.ChoiceField(choices=DURATION_CHOICES)

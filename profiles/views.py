@@ -29,6 +29,7 @@ def team_progress(request):
         if hasattr(user, 'profile') and user.profile.role == 'Department Leader':
             return render(request, 'profiles/teamprogress_DL.html')
         else:
-            return render(request, 'profiles/teamprogress_TM.html')
+            return render(request, 'profiles/teamprogress_DL.html')
     else:
         return redirect('login')
+
