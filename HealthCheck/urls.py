@@ -18,6 +18,9 @@ urlpatterns = [
     path('', include('department_senior.urls')),
 
     path('', include('profiles.urls')),
+    
+    path('', include('adminhealthcheck.urls')),
+
 ]
 
 # Serve static files during development
