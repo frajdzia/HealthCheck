@@ -8,10 +8,11 @@ from django.contrib.auth.models import User
 def team_progress(request):         #to view the teamprogress_SM.html if the users role is senior manager
     user = request.user             #getting the user
     if user.is_authenticated:       #getting the current user that is logged in
-        if hasattr(user, 'profile') and user.profile.role == 'Senior Manager':      #check if users role is 'Senior Manager'
-            return render(request, 'authentication/teamprogress_SM.html')           #goes to teamprogress for roles that are Senior Manager
+        form = TeamProgressFilterForm()
+        if hasattr(user, 'profile') and user.profile.role == 'senior-manager':      #check if users role is 'Senior Manager'
+            return render(request, 'authentication/teamprogress_SM.html', {'form': form})           #goes to teamprogress for roles that are Senior Manager
         else:
-            return render(request, 'authentication/teamprogress_SM.html')           #goes to teamprogress for roles that are engineers
+            return render(request, 'profiles/teamprogress_DL.html')           #goes to teamprogress for roles that are department leader
     else:
         return redirect('login')            #returns to login.html if user is not logged in
 
