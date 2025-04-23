@@ -11,10 +11,45 @@
   <h1>Department Leader Overview</h1>
 
   <div class="rectangle-container">
+
+    <body>
+    <div class="department-overview">
+    Your Department Leader Overview allows you to...
+    <br />
+    <br />
+    <br />
+    Allows the department manager to see all teams and departments in summaryor and their progress over time!
+  </div>
     <div class="rectangle-57"></div>
   </div>
 
+<form>
+    {% csrf_token %}
+    <div class="dropdown-row">
+      <div class="dropdown-container">
+        <select id="deparment" name="department">
+          <option value="" disabled selected hidden>Select Department</option>
+          <option value="department_leader"> Department 1</option>
+          <option value="senior_manager">Department 2</option>
+        </select>
+
+      </div>
 
 
+
+
+      <div class="dropdown-container">
+        <select id="duration" name="duration">
+          <option value="" disabled selected hidden>Select Duration</option>
+          <option value="department_leader"> Duration 1</option>
+          <option value="senior_manager"> Duration 2</option>
+        </select>
+
+      </div>
+    </div>
+  </form>
+  
+  <div class="department-overview1">DEPARTMENT OVERVIEW</div>
+</body>
   
 {% endblock %}

@@ -12,5 +12,7 @@ urlpatterns = [
     path ('dashboard_DL/', views.dashboard_DL, name ='dashboard_DL'),
 
     path('teamprogress_SM/', views.teamprogress_SM, name="teamprogress_SM"),
+
+    path('teamprogress_DL/', views.teamprogress_DL, name="teamprogress_DL"), 
 ]
 

@@ -22,7 +22,13 @@ def signup_view(request):           #view to handle the users sign up
         if form.is_valid():         #check if input form is valid
             user = form.save()      #save the users input form
             messages.success(request, f'Account created for {user.username}!')      #if successful, print the message and the username
-            return redirect('dashboard')    #goes to the home page (dashboard) if succesfful
+            if user.profile.role == 'department-leader':
+                return redirect('dashboard_DL')
+            elif user.profile.role == 'senior-manager':
+                return redirect('dashboard_SM')
+            else:
+                return redirect('dashboard')   #goes to the home page (dashboard) if succesfful
+            
         else:
             return render(request, 'authentication/signup.html', {'form': form})        #redirects to signup.html if fails
     else:
@@ -33,8 +39,17 @@ def signup_view(request):           #view to handle the users sign up
 class CustomLoginView(LoginView):       #view to handle the login view with Django's LoginView
     template_name = 'authentication/login.html'         #custom login form specification for the template
     authentication_form = CustomLoginForm               #custom login form specification
-
-    success_url = reverse_lazy('dashboard')             #goes to dashboard if login is successful
+    print("Authentication form: ", authentication_form)
+    
+    def get_success_url(self):
+        
+        if self.request.user.profile.role == 'department-leader':
+            
+            return reverse_lazy('dashboard_DL')
+        elif self.request.user.profile.role == 'senior-manager':
+            return reverse_lazy('dashboard_SM')
+        else:
+            return reverse_lazy('dashboard')             #goes to dashboard if login is successful
 
 def forget_password(request):       #view to handle the forgetpassword.html to reset the password for the user
     if request.method == 'POST':

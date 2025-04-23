@@ -15,3 +15,5 @@ def dashboard_SM (request):
 def teamprogress_SM (request):
     return render(request, 'department_senior/teamprogress_SM.html')
 
+def teamprogress_DL (request):
+    return render(request, 'profiles/teamprogress_DL.html')

@@ -36,6 +36,13 @@ def dashboard(request):
                 return redirect('voting', team_name=team_name)
             except Team.DoesNotExist:
                 pass  # Handle invalid team input
+    if request.method == 'GET':
+        if request.user.profile.role == 'department-leader':
+            return redirect('dashboard_DL')
+        elif request.user.profile.role == 'senior-manager':
+            return redirect('dashboard_SM')
+        else:
+            return redirect('dashboard')
     return render(request, 'home/home.html', {'teams': teams, 'roles': roles})
 
 
