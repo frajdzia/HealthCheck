@@ -13,7 +13,7 @@ urlpatterns = [
     # URL for home page
     path('dashboard/', views.dashboard, name='dashboard'),
 
-    path('', include('authentication.urls')),       #authentication app URLS implemented by Tracey
+    path('', include('authentication.urls')),
 
     path('', include('department_senior.urls')),
 
