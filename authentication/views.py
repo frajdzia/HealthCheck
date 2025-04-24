@@ -22,6 +22,10 @@ def signup_view(request):           #view to handle the users sign up
         
         if form.is_valid():         #check if input form is valid
             user = form.save()      #save the users input form
+            role = form.cleaned_data.get('role')
+            if hasattr(user, 'profile'):
+                user.profile.role = role
+                user.profile.save()
             messages.success(request, f'Account created for {user.username}!')      #if successful, print the message and the username
             if user.profile.role == 'department-leader':
                 return redirect('dashboard_DL')
