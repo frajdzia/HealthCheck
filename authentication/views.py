@@ -10,9 +10,9 @@ def team_progress(request):         #to view the teamprogress_SM.html if the use
     if user.is_authenticated:       #getting the current user that is logged in
         form = TeamProgressFilterForm()
         if hasattr(user, 'profile') and user.profile.role == 'senior-manager':      #check if users role is 'Senior Manager'
-            return render(request, 'authentication/teamprogress_SM.html', {'form': form})   #goes to teamprogress for roles that are Senior Manager
+            return render(request, 'authentication/teamprogress_SM.html', {'form': form})           #goes to teamprogress for roles that are Senior Manager
         else:
-            return render(request, 'profiles/teamprogress_DL.html')      #goes to teamprogress_DL (created by Manjit) for department leaders
+            return render(request, 'profiles/teamprogress_DL.html')           #goes to teamprogress for roles that are department leader
     else:
         return redirect('login')            #returns to login.html if user is not logged in
 
@@ -42,9 +42,9 @@ class CustomLoginView(LoginView):       #view to handle the login view with Djan
     authentication_form = CustomLoginForm               #custom login form specification
     print("Authentication form: ", authentication_form)
     
-    def get_success_url(self):          #code implemented by Sham from line 45 to line 52
+    def get_success_url(self):
         
-        if self.request.user.profile.role == 'department-leader': 
+        if self.request.user.profile.role == 'department-leader':
             
             return reverse_lazy('dashboard_DL')
         elif self.request.user.profile.role == 'senior-manager':
