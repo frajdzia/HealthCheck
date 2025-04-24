@@ -27,7 +27,7 @@ def signup_view(request):           #view to handle the users sign up
                 user.profile.role = role
                 user.profile.save()
             messages.success(request, f'Account created for {user.username}!')      #if successful, print the message and the username
-            if user.profile.role == 'department-leader':
+            if user.profile.role == 'department-leader':    #codes from line 30 - line 35 is added by Sham
                 return redirect('dashboard_DL')
             elif user.profile.role == 'senior-manager':
                 return redirect('dashboard_SM')
@@ -46,7 +46,7 @@ class CustomLoginView(LoginView):       #view to handle the login view with Djan
     authentication_form = CustomLoginForm               #custom login form specification
     print("Authentication form: ", authentication_form)
     
-    def get_success_url(self):
+    def get_success_url(self):  #codes from line 49 to line 57 is implemented by Sham
         
         if self.request.user.profile.role == 'department-leader':
             
