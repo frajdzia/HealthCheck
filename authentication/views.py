@@ -42,7 +42,7 @@ class CustomLoginView(LoginView):       #view to handle the login view with Djan
     authentication_form = CustomLoginForm               #custom login form specification
     print("Authentication form: ", authentication_form)
     
-    def get_success_url(self):
+    def get_success_url(self):      #code implemented by Sham
         
         if self.request.user.profile.role == 'department-leader':
             
