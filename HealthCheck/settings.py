@@ -33,8 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'authentication',
-    'widget_tweaks',
+    'authentication',   #added by Tracey
+    'widget_tweaks',    #added by Tracey
     'profiles',
     'department_senior',
     'adminhealthcheck',
