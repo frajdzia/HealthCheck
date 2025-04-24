@@ -8,8 +8,10 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 
 class UserUpdateForm(UserChangeForm):
+    # custom form for users editing their own profile details
     class Meta:
         model = User
+        # fields that are editable through form
         fields = ['username', 'first_name', 'last_name', 'email']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First Name'}),
@@ -31,7 +33,8 @@ class UserUpdateForm(UserChangeForm):
             if field.widget.attrs.get('id') != 'role':
                 field.widget.attrs['disabled'] = 'disabled'
 
-class TeamProgressFilterForm(forms.Form):       
+class TeamProgressFilterForm(forms.Form):   
+    # filter form for team progress dashboard
     TEAM_CHOICES = [
         ('team1', 'Team 1'),
         ('team2', 'Team 2'),

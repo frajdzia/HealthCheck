@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}" />
 {% endblock %}
 
+<!-- message from django's message framework -->
 {% block content %} {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -57,7 +58,7 @@
                 <input type="text" id="role" value="{{ user.profile.role }}" class="form-input" disabled />
                 <p class="unchangeable">*Unchangeable</p>
             </div>
-
+            <!-- action buttons reffered to in JS script -->
             <div class="form-actions">
                 <button type="button" id="editButton">Edit</button>
                 <button type="submit" id="saveButton">Save Changes</button>
@@ -66,6 +67,7 @@
     </section>
 </div>
 
+<!-- allows for js to be applied to this html doc -->
 {% endblock %} {% block extra_js %}
 <script src="{% static 'profiles/js/profile.js' %}"></script>
 {% endblock %}

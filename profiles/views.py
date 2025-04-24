@@ -4,8 +4,10 @@ from django.contrib.auth import update_session_auth_hash, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm
 
+# displayes profile form and handles edits 
+# if user changes sensitive fields (username or password), they're logged out and must re-authenticate 
 def profile(request):
-    if request.method == 'POST':
+    if request.method == 'POST': 
         form = UserUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             if form.has_changed():
@@ -23,6 +25,7 @@ def profile(request):
 
     return render(request, 'profiles/profile.html', {'form': form})
 
+# DL are redirected to role specific dashbaord page 
 def team_progress(request):
     user = request.user
     if user.is_authenticated:
