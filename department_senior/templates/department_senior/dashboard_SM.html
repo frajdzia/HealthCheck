@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Senior Manager Dashboard{% endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'department_senior/css/dashboards.css' %}" />
+<link rel="stylesheet" href="{% static 'department_senior/css/dashboards.css' %}" /> 
 {% endblock %}
 {% block content %}
   
@@ -43,7 +43,7 @@
           </p>
         </div>
      
-
+         <!--adding url path made from urls.py to view the teamprogress for senior manager-->
         <div class="card">
           <a href="{% url 'teamprogress_SM' %}" class="card-link">
           <h3>Team Progress</h3>

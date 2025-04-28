@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load widget_tweaks %}
 {% block title %}Department Leader Overview{% endblock %}
 
 {% block extra_css %}
@@ -12,6 +12,8 @@
 
   <div class="rectangle-container">
 
+
+     <!--overview content down here-->
     <body>
     <div class="department-overview">
     Your Department Leader Overview allows you to...
@@ -23,6 +25,8 @@
     <div class="rectangle-57"></div>
   </div>
 
+
+   <!--drop down content-->
 <form>
     {% csrf_token %}
     <div class="dropdown-row">
@@ -41,8 +45,9 @@
       <div class="dropdown-container">
         <select id="duration" name="duration">
           <option value="" disabled selected hidden>Select Duration</option>
-          <option value="department_leader"> Duration 1</option>
-          <option value="senior_manager"> Duration 2</option>
+          <option value="department_leader"> 1 month</option>
+          <option value="department_leader"> 6 months</option>
+          <option value="department_leader">1 year</option>
         </select>
 
       </div>
