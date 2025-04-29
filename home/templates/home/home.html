@@ -8,35 +8,95 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Testing home page</h1>
-  
-  <div class="custom-home-style">
-    <p>Test of app-specific CSS.</p>
-    <p>
-    Welcome to Team HealthCheck! Our platform helps you easily track your team’s tasks and
-    provide real-time feedback. Stay informed on task progress, evaluate
-    performance, and ensure continuous improvement with clear, actionable
-    insights.
-  </p>
+  <h1>Team Health Check</h1>
 
-  
-  <form method="POST" action="{% url 'dashboard' %}" class="select-form">
-    {% csrf_token %}
-    <div class="select-wrapper">
-      <label for="team">Select Team:</label>
-      <select class="team_select" name="team" id="team">
-        <option value="">-- Select a Team --</option>
-        {% for team in teams %}
-          <option value="{{ team.team_name }}">{{ team.team_name }}</option>
-        {% endfor %}
-      </select>
-      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
-        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
-      </svg>
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
     </div>
+  {% endif %}
 
-    <button type="submit">Submit</button>
-  </form>
+  <div class="custom-home-style">
+    <h4 class="user-role">Your role: {{ user_role|title }}</h4>
+    <p>
+      Welcome to Team HealthCheck! Our platform helps you easily track your team’s tasks and
+      provide real-time feedback. Stay informed on task progress, evaluate
+      performance, and ensure continuous improvement with clear, actionable
+      insights.
+    </p>
 
+    {% if has_selection %}
+      <div class="selection-info">
+        <h3>You have already selected your team and department.</h3>
+        <p><strong>Department:</strong> {{ department.name }}</p>
+        <p><strong>Team:</strong> {{ team.team_name }}</p>
+        <form method="POST" action="{% url 'dashboard' %}">
+          {% csrf_token %}
+          <button class="home-btn" type="submit">Continue</button>
+        </form>
+      </div>
+    {% else %}
+      <h3>Select the department and team you are assigned to.</h3>
+      <form method="POST" action="{% url 'dashboard' %}" class="select-form">
+        {% csrf_token %}
+        <div class="select-wrapper">
+          <label for="department">Department:</label>
+          <select class="select" id="department" name="department">
+            <option value="">Choose Department</option>
+            {% for dept in departments %}
+              <option value="{{ dept.id }}">{{ dept.name }}</option>
+            {% endfor %}
+          </select>
+          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+          </svg>
+        </div>
+        <br>
+        <div class="select-wrapper">
+        <label for="team">Team:</label>
+        <select class="select" id="team" name="team" disabled>
+          <option value="">Choose Team</option>
+        </select>
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+          <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+        </svg>
+      </div>
+
+        <button class="home-btn" id="submit-btn" type="submit" disabled>Continue</button>
+      </form>
+    {% endif %}
   </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  {% if not has_selection %}
+  <script>
+    $('#department').change(function() {
+      let deptId = $(this).val();
+      if (deptId) {
+        $.getJSON("{% url 'get_teams' %}", { department_id: deptId }, function(data) {
+          let teamSelect = $('#team');
+          teamSelect.empty();
+          teamSelect.append('<option value="">-- Choose Team --</option>');
+          $.each(data, function(index, team) {
+            teamSelect.append(`<option value="${team.id}">${team.team_name}</option>`);
+          });
+          teamSelect.prop('disabled', false);
+          $('#submit-btn').prop('disabled', true);
+        });
+      } else {
+        $('#team').empty().prop('disabled', true);
+        $('#submit-btn').prop('disabled', true);
+      }
+    });
+
+    $('#team').change(function() {
+      $('#submit-btn').prop('disabled', !$(this).val());
+    });
+  </script>
+  {% endif %}
 {% endblock %}

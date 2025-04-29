@@ -1,5 +1,111 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Voting Summaries{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
 {% block content %}
-  <h2>Submission successful!!</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+
+<div class="user-role">
+  <h2>{{ user_role|title }} Voting Summary</h2>
+</div>
+
+{% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if user_role != 'engineer' %}
+  {% if session_results %}
+    <h3>Team Voting Summary</h3>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Team</th>
+          <th>Question</th>
+          <th>Bad</th>
+          <th>Neutral</th>
+          <th>Good</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in session_results %}
+          <tr>
+            <td>{{ result.department_name }}</td>
+            <td>{{ result.team_name }}</td>
+            <td>{{ result.question }}</td>
+            <td class="{% if result.trend == 0 %}red{% endif %}">{{ result.red_count }}</td>
+            <td class="{% if result.trend == 1 %}yellow{% endif %}">{{ result.yellow_count }}</td>
+            <td class="{% if result.trend == 2 %}green{% endif %}">{{ result.green_count }}</td>
+            <td class="{{ result.trend_color|lower }}">{{ result.state|title }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No session results available for this date.</p>
+  {% endif %}
+{% endif %}
+
+<!-- Date Picker Form -->
+<form method="get" action="" class="date-picker-form">
+  <label for="date">Select Date:</label>
+  <input type="text" id="date" name="date" value="{{ selected_date|date:'Y-m-d' }}" class="flatpickr" />
+  <button class="home-btn" type="submit">Show Results</button>
+</form>
+
+<h3>Your Votes</h3>
+<div class="user-votes">
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Trend</th>
+        <th>State</th>
+        <th>Time</th>  <!-- Displaying the time column -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for vote in user_votes %}
+        <tr>
+          <td>{{ vote.question }}</td>
+          <td class="{% if vote.trend == 0 %}red{% elif vote.trend == 1 %}yellow{% else %}green{% endif %}">
+            {% if vote.trend == 0 %}
+              Bad
+            {% elif vote.trend == 1 %}
+              Neutral
+            {% elif vote.trend == 2 %}
+              Good
+            {% else %}
+              Unknown
+            {% endif %}
+          </td>
+          <td>{{ vote.state|capfirst }}</td>
+          <td>{{ vote.time }}</td>  <!-- Displaying the formatted time -->
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Initialize Flatpickr -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  flatpickr("#date", {
+    dateFormat: "Y-m-d",
+    maxDate: "today",  // Only allow selecting today or earlier
+  });
+</script>
+
 {% endblock %}

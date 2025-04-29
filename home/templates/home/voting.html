@@ -7,23 +7,176 @@
   <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
 {% endblock %}
 
-{% block content %}  <h2>You are voting for team "{{ team.team_name }}"</h2>
-  {% for card in cards %}
-    <div>
-      <h3>Delivering Value (Card {{ card.id }})</h3>
-      <p>We select cap: <span style="color: red;">We feel ashamed...</span></p>
-      <p>We deliver cap: <span style="color: orange;">Our stakeholders hate...</span></p>
-      <p>We improve and try: <span style="color: yellow;">We are improving...</span></p>
-      <p>We deliver great stuff: <span style="color: green;">We are proud...</span></p>
-      <form method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="card_id" value="{{ card.id }}">
-        <label>How is the state of value?</label><br>
-        <input type="radio" name="state" value="1" required> Red
-        <input type="radio" name="state" value="2"> Amber
-        <input type="radio" name="state" value="3"> Green
-        <button type="submit">Vote</button>
-      </form>
+{% block content %}  
+
+{% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<h2>You are voting for team "{{ team.team_name }}"</h2>
+<p>Progress: <span id="current-card">1</span> of {{ cards|length }} question(s)</p>
+
+<form id="voting-form" method="POST">
+  {% csrf_token %}
+  {% if cards %}
+    {% for card in cards %}
+      <div class="card-form" data-card-id="{{ card.id }}">
+        <h4>Question: {{ card.question.text }}</h4>
+
+        <!-- Trend Section -->
+        <div class="traffic-lights-form">
+          <!-- Traffic Lights -->
+          <div class="lights-container">
+            <ul id="traffic-lights-list-{{ card.id }}"></ul>
+          </div>
+
+          <!-- Trend Choices -->
+          <div class="lights-choice">
+            <div class="radio-inputs">
+              {% for value, desc in trend_choices %}
+                <label>
+                  <input class="radio-input trend-input" type="radio" name="responses[{{ card.id }}][trend]" value="{{ value }}">
+                  <span class="radio-tile {% if value == 0 %}red{% elif value == 1 %}yellow{% else %}green{% endif %}">
+                    <span class="radio-label">
+                      {{ desc }}
+                    </span>
+                  </span>
+                </label>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- State Section -->
+        <div class="lights-state">
+          <h4>How is the state of the value?</h4>
+          <div class="radio-inputs">
+            <label>
+              <input class="radio-input state-input" type="radio" name="responses[{{ card.id }}][state]" value="declining">
+              <span class="radio-tile">
+                <span class="radio-label">Declining</span>
+              </span>
+            </label>
+            <label>
+              <input class="radio-input state-input" type="radio" name="responses[{{ card.id }}][state]" value="improving">
+              <span class="radio-tile">
+                <span class="radio-label">Improving</span>
+              </span>
+            </label>
+            <label>
+              <input class="radio-input state-input" type="radio" name="responses[{{ card.id }}][state]" value="stable">
+              <span class="radio-tile">
+                <span class="radio-label">Stable</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="navigation">
+      <button type="button" class="home-btn" id="prev-btn" disabled>Previous</button>
+      <button type="button" class="home-btn" id="next-btn">Next</button>
+      <button type="submit" class="home-btn" id="submit-btn" style="display: none;">Submit</button>
     </div>
-  {% endfor %}
+  {% else %}
+    <p>No questions available for this team.</p>
+  {% endif %}
+</form>
+
+<script>
+  // Traffic Lights Initialization
+  function createTrafficLightItem(classes) {
+    const li = document.createElement('li');
+    li.className = `traffic-lights`;
+    li.innerHTML = `
+      <div class="light-btn ${classes}"></div>
+    `;
+    return li;
+  }
+
+  const trafficLightsData = [
+    { classes: 'red' },
+    { classes: 'yellow' },
+    { classes: 'green' }
+  ];
+
+  // Initialize traffic lights for all cards
+  document.querySelectorAll('[id^="traffic-lights-list-"]').forEach(list => {
+    trafficLightsData.forEach(data => {
+      list.appendChild(createTrafficLightItem(data.classes));
+    });
+  });
+
+  // Navigation and Form Handling
+  const cards = document.querySelectorAll('.card-form');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const submitBtn = document.getElementById('submit-btn');
+  const currentCardDisplay = document.getElementById('current-card');
+  let currentIndex = 0;
+  const responses = {};
+
+  // Initialize: Show the first card
+  if (cards.length > 0) {
+    cards[currentIndex].classList.add('active');
+    updateButtons();
+  }
+
+  // Navigation functions
+  function showCard(index) {
+    cards.forEach(card => card.classList.remove('active'));
+    cards[index].classList.add('active');
+    currentIndex = index;
+    currentCardDisplay.textContent = currentIndex + 1;
+    updateButtons();
+  }
+
+  function updateButtons() {
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.style.display = currentIndex === cards.length - 1 ? 'none' : 'inline-block';
+    submitBtn.style.display = currentIndex === cards.length - 1 ? 'inline-block' : 'none';
+  }
+
+  // Store responses as the user selects options
+  document.querySelectorAll('.trend-input, .state-input').forEach(input => {
+    input.addEventListener('change', () => {
+      const cardId = input.closest('.card-form').dataset.cardId;
+      if (!responses[cardId]) responses[cardId] = {};
+      if (input.classList.contains('trend-input')) {
+        responses[cardId].trend = input.value;
+      } else {
+        responses[cardId].state = input.value;
+      }
+    });
+  });
+
+  // Navigation button handlers
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) showCard(currentIndex - 1);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const currentCard = cards[currentIndex];
+    const cardId = currentCard.dataset.cardId;
+    const trendSelected = currentCard.querySelector(`input[name="responses[${cardId}][trend]"]:checked`);
+    const stateSelected = currentCard.querySelector(`input[name="responses[${cardId}][state]"]:checked`);
+  
+    if (!trendSelected || !stateSelected) {
+      alert('Please select both trend and state before moving to the next question.');
+      return; // Block navigation
+    }
+  
+    if (currentIndex < cards.length - 1) {
+      showCard(currentIndex + 1);
+    }
+  });
+</script>
+
 {% endblock %}
