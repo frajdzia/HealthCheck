@@ -60,9 +60,6 @@ def signup_view(request):
 
     return render(request, 'authentication/signup.html', {'form': form})
 
-
-    return render(request, 'authentication/signup.html', {'form': form})
-
 class CustomLoginView(LoginView):       #view to handle the login view with Django's LoginView
     template_name = 'authentication/login.html'         #custom login form specification for the template
     authentication_form = CustomLoginForm               #custom login form specification
