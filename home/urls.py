@@ -14,6 +14,6 @@ urlpatterns = [
     # teams selection based on department
     path('get-teams/', views.get_teams, name='get_teams'),
 
-    # 
+    # check if user has asigned team & department
     path('home-vote-view/', views.home_vote_view, name='home_vote_view'),
 ]

@@ -13,7 +13,7 @@
 <div class="user-role">
   <h2>{{ user_role|title }} Voting Summary</h2>
 </div>
-
+ {% comment %} showes messages if there are any  {% endcomment %}
 {% if messages %}
   <div class="messages">
     {% for message in messages %}
@@ -24,6 +24,9 @@
   </div>
 {% endif %}
 
+{% comment %} other role than engineer - team leader 
+as they can see team data
+{% endcomment %}
 {% if user_role != 'engineer' %}
   {% if session_results %}
     <h3>Team Voting Summary</h3>
@@ -58,6 +61,12 @@
   {% endif %}
 {% endif %}
 
+{% comment %} votes of the user  {% endcomment %}
+
+<br>
+<h3>Your Votes</h3>
+
+<p>Select the date of your votes that you want to see.</p>
 <!-- Date Picker Form -->
 <form method="get" action="" class="date-picker-form">
   <label for="date">Select Date:</label>
@@ -65,7 +74,7 @@
   <button class="home-btn" type="submit">Show Results</button>
 </form>
 
-<h3>Your Votes</h3>
+
 <div class="user-votes">
   <table class="summary-table">
     <thead>
@@ -73,7 +82,7 @@
         <th>Question</th>
         <th>Trend</th>
         <th>State</th>
-        <th>Time</th>  <!-- Displaying the time column -->
+        <th>Time</th>
       </tr>
     </thead>
     <tbody>
@@ -92,7 +101,7 @@
             {% endif %}
           </td>
           <td>{{ vote.state|capfirst }}</td>
-          <td>{{ vote.time }}</td>  <!-- Displaying the formatted time -->
+          <td>{{ vote.time }}</td>
         </tr>
       {% endfor %}
     </tbody>

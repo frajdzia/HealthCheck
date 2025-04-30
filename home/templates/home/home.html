@@ -10,6 +10,7 @@
 {% block content %}
   <h1>Team Health Check</h1>
 
+  {% comment %} checks if any messages - show them if there are  {% endcomment %}
   {% if messages %}
     <div class="messages">
       {% for message in messages %}
@@ -29,6 +30,7 @@
       insights.
     </p>
 
+    {% comment %} if user has selected their department and team {% endcomment %}
     {% if has_selection %}
       <div class="selection-info">
         <h3>You have already selected your team and department.</h3>
@@ -39,10 +41,12 @@
           <button class="home-btn" type="submit">Continue</button>
         </form>
       </div>
+      {% comment %} if they did not select anything {% endcomment %}
     {% else %}
       <h3>Select the department and team you are assigned to.</h3>
       <form method="POST" action="{% url 'dashboard' %}" class="select-form">
         {% csrf_token %}
+        {% comment %} department selection  {% endcomment %}
         <div class="select-wrapper">
           <label for="department">Department:</label>
           <select class="select" id="department" name="department">
@@ -56,6 +60,7 @@
           </svg>
         </div>
         <br>
+        {% comment %} team selection  {% endcomment %}
         <div class="select-wrapper">
         <label for="team">Team:</label>
         <select class="select" id="team" name="team" disabled>
@@ -65,14 +70,14 @@
           <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
         </svg>
       </div>
-
+{% comment %} submit button of team and dep selections {% endcomment %}
         <button class="home-btn" id="submit-btn" type="submit" disabled>Continue</button>
       </form>
     {% endif %}
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+{% comment %} script to manage selection  {% endcomment %}
   {% if not has_selection %}
   <script>
     $('#department').change(function() {
@@ -81,7 +86,7 @@
         $.getJSON("{% url 'get_teams' %}", { department_id: deptId }, function(data) {
           let teamSelect = $('#team');
           teamSelect.empty();
-          teamSelect.append('<option value="">-- Choose Team --</option>');
+          teamSelect.append('<option value=""> Choose Team </option>');
           $.each(data, function(index, team) {
             teamSelect.append(`<option value="${team.id}">${team.team_name}</option>`);
           });

@@ -11,50 +11,54 @@
   <h1>Department Leader Overview</h1>
 
   <div class="rectangle-container">
-
-
-     <!--overview content down here-->
-    <body>
+    <!--overview content down here-->
     <div class="department-overview">
-    Your Department Leader Overview allows you to...
-    <br />
-    <br />
-    <br />
-    Allows the department manager to see all teams and departments in summaryor and their progress over time!
-  </div>
+      Your Department Leader Overview allows you to...
+      <br />
+      <br />
+      <br />
+      Allows the department manager to see all teams and departments in summaryor and their progress over time!
+    </div>
     <div class="rectangle-57"></div>
   </div>
 
-
-   <!--drop down content-->
-<form>
+  <!--drop down content-->
+  <form method="get" id="overview-form">
     {% csrf_token %}
     <div class="dropdown-row">
       <div class="dropdown-container">
-        <select id="deparment" name="department">
+        <select id="department" name="department" onchange="document.getElementById('overview-form').submit();">
           <option value="" disabled selected hidden>Select Department</option>
-          <option value="department_leader"> Department 1</option>
-          <option value="senior_manager">Department 2</option>
+          {% for dept in departments %}
+            <option value="{{ dept.id }}" {% if dept.id|stringformat:"s" == request.GET.department %}selected{% endif %}>{{ dept.name }}</option>
+          {% empty %}
+            <option>No departments found</option>
+          {% endfor %}
         </select>
-
       </div>
 
-
-
-
       <div class="dropdown-container">
-        <select id="duration" name="duration">
+        <select id="duration" name="duration" onchange="document.getElementById('overview-form').submit();">
           <option value="" disabled selected hidden>Select Duration</option>
-          <option value="department_leader"> 1 month</option>
-          <option value="department_leader"> 6 months</option>
-          <option value="department_leader">1 year</option>
+          <option value="1m" {% if request.GET.duration == "1m" %}selected{% endif %}>1 month</option>
+          <option value="6m" {% if request.GET.duration == "6m" %}selected{% endif %}>6 months</option>
+          <option value="1y" {% if request.GET.duration == "1y" %}selected{% endif %}>1 year</option>
         </select>
-
       </div>
     </div>
   </form>
-  
-  <div class="department-overview1">DEPARTMENT OVERVIEW</div>
-</body>
-  
+
+  <!-- department overview shown here -->
+  <div class="department-overview1">
+    <h3>DEPARTMENT OVERVIEW</h3>
+
+    {% if selected_department %}
+      <p>Currently Selected Department: {{ selected_department.name }}</p>
+      <p>Best Performing Team: {{ best_team_name }} - {{ best_team_performance }}%</p>
+      <p>Worst Performing Team: {{ worst_team_name }} - {{ worst_team_performance }}%</p>
+    {% else %}
+      <p>Please select a department to view its performance overview.</p>
+    {% endif %}
+  </div>
+
 {% endblock %}

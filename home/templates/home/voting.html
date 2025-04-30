@@ -9,6 +9,8 @@
 
 {% block content %}  
 
+{% comment %} messages if there are any  {% endcomment %}
+
 {% if messages %}
   <div class="messages">
     {% for message in messages %}
@@ -19,8 +21,12 @@
   </div>
 {% endif %}
 
+{% comment %} shows team what you give votes for and the progress  {% endcomment %}
+
 <h2>You are voting for team "{{ team.team_name }}"</h2>
 <p>Progress: <span id="current-card">1</span> of {{ cards|length }} question(s)</p>
+
+{% comment %} voting form  {% endcomment %}
 
 <form id="voting-form" method="POST">
   {% csrf_token %}
@@ -80,6 +86,8 @@
       </div>
     {% endfor %}
 
+
+    {% comment %} preious next button  {% endcomment %}
     <div class="navigation">
       <button type="button" class="home-btn" id="prev-btn" disabled>Previous</button>
       <button type="button" class="home-btn" id="next-btn">Next</button>
