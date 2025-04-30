@@ -42,28 +42,24 @@ def team_progress(request):         #to view the teamprogress_SM.html if the use
         return redirect('login')            #returns to login.html if user is not logged in
 
     
-def signup_view(request):           #view to handle the users sign up
+def signup_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST) #populatin the form with the informations that the user input
-        
-        if form.is_valid():         #check if input form is valid
-            user = form.save()      #save the users input form
+        if form.is_valid():
+            user = form.save()
             role = form.cleaned_data.get('role')
             if hasattr(user, 'profile'):
                 user.profile.role = role
                 user.profile.save()
-            messages.success(request, f'Account created for {user.username}!')      #if successful, print the message and the username
-            if user.profile.role == 'department-leader':    #codes from line 30 - line 35 is added by Sham
-                return redirect('dashboard_DL')
-            elif user.profile.role == 'senior-manager':
-                return redirect('dashboard_SM')
-            else:
-                return redirect('dashboard')   #goes to the home page (dashboard) if succesfful
-            
+            messages.success(request, f'Account created for {user.username}! Please log in.') #if successful print message and the username
+            return redirect('login')  # Redirect to login page after successful signup
         else:
-            return render(request, 'authentication/signup.html', {'form': form})        #redirects to signup.html if fails
+            return render(request, 'authentication/signup.html', {'form': form})
     else:
-        form = CustomUserCreationForm()         #return the form again
+        form = CustomUserCreationForm()
+
+    return render(request, 'authentication/signup.html', {'form': form})
+
 
     return render(request, 'authentication/signup.html', {'form': form})
 
