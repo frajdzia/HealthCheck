@@ -2,20 +2,44 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import CustomUserCreationForm, CustomLoginForm, ForgetPasswordForm, TeamProgressFilterForm
+from .forms import CustomUserCreationForm, CustomLoginForm, ForgetPasswordForm
+from home.forms import TeamProgressFilterForm
 from django.contrib.auth.models import User
+from home.views import team_progress_summary  # Import the reusable function
 
 def team_progress(request):         #to view the teamprogress_SM.html if the users role is senior manager
     user = request.user             #getting the user
+    print(f"team_progress: user={user}, is_authenticated={user.is_authenticated}")
     if user.is_authenticated:       #getting the current user that is logged in
-        form = TeamProgressFilterForm()
-        if hasattr(user, 'profile') and user.profile.role == 'senior-manager':      #check if users role is 'Senior Manager'
-            return render(request, 'authentication/teamprogress_SM.html', {'form': form})           #goes to teamprogress for roles that are Senior Manager
+        if hasattr(user, 'profile'):
+            role = user.profile.role
+            print(f"team_progress: role={role}")
+            if role == 'senior-manager':      #check if users role is 'Senior Manager'
+                # Use the reusable function
+                form = TeamProgressFilterForm(user=request.user, data=request.POST or None)
+                print(f"team_progress: form created, bound={form.is_bound}")
+                team_summary, selected_date, form, template_name = team_progress_summary(
+                    user=request.user, role='senior-manager', form=form
+                )
+                print(f"team_progress: team_summary={team_summary}, selected_date={selected_date}, template_name={template_name}")
+                return render(request, template_name, {
+                    'form': form,
+                    'team_summary': team_summary,
+                    'selected_date': selected_date,
+                })           #goes to teamprogress for roles that are Senior Manager
+            elif role == 'engineer':
+                return redirect('summary')  # engineers go to summary
+            else:
+                return redirect('teamprogress_DL')  # department leaders go to their page
         else:
-            return render(request, 'profiles/teamprogress_DL.html')           #goes to teamprogress for roles that are department leader
+            messages.error(request, "User profile not found.")
+            print("team_progress: User profile not found")
+            return redirect('login')
     else:
+        print("team_progress: User not authenticated")
         return redirect('login')            #returns to login.html if user is not logged in
 
+    
 def signup_view(request):           #view to handle the users sign up
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST) #populatin the form with the informations that the user input

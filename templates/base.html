@@ -19,7 +19,15 @@
           <ul class="navbar-nav">
             <div class="left-align">
               <li class="nav-item">
+                {% if user.is_authenticated and user_role in 'engineer team-leader' %}
                 <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+                {% elif user.is_authenticated and user_role in 'department-leader'%}
+                <a class="nav-link" href="{% url 'dashboard_DL' %}">Home</a>
+                {% elif user.is_authenticated and user_role in 'senior-manager'%}
+                <a class="nav-link" href="{% url 'dashboard_SM' %}">Home</a>
+                {% else %}
+                <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+                {% endif %}
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile' %}">Profile</a>

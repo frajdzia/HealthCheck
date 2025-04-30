@@ -24,10 +24,18 @@
   </div>
 {% endif %}
 
+<p>Select the date of your votes that you want to see.</p>
+<!-- Date Picker Form -->
+<form method="get" action="" class="date-picker-form">
+  <label for="date">Select Date:</label>
+  <input type="text" id="date" name="date" value="{{ selected_date|date:'Y-m-d' }}" class="flatpickr" />
+  <button class="home-btn" type="submit">Show Results</button>
+</form>
+
 {% comment %} other role than engineer - team leader 
 as they can see team data
 {% endcomment %}
-{% if user_role != 'engineer' %}
+{% if user_role == 'team-leader' %}
   {% if session_results %}
     <h3>Team Voting Summary</h3>
     <table class="summary-table">
@@ -66,47 +74,42 @@ as they can see team data
 <br>
 <h3>Your Votes</h3>
 
-<p>Select the date of your votes that you want to see.</p>
-<!-- Date Picker Form -->
-<form method="get" action="" class="date-picker-form">
-  <label for="date">Select Date:</label>
-  <input type="text" id="date" name="date" value="{{ selected_date|date:'Y-m-d' }}" class="flatpickr" />
-  <button class="home-btn" type="submit">Show Results</button>
-</form>
-
-
-<div class="user-votes">
-  <table class="summary-table">
-    <thead>
-      <tr>
-        <th>Question</th>
-        <th>Trend</th>
-        <th>State</th>
-        <th>Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for vote in user_votes %}
+{% if user_votes %}
+  <div class="user-votes">
+    <table class="summary-table">
+      <thead>
         <tr>
-          <td>{{ vote.question }}</td>
-          <td class="{% if vote.trend == 0 %}red{% elif vote.trend == 1 %}yellow{% else %}green{% endif %}">
-            {% if vote.trend == 0 %}
-              Bad
-            {% elif vote.trend == 1 %}
-              Neutral
-            {% elif vote.trend == 2 %}
-              Good
-            {% else %}
-              Unknown
-            {% endif %}
-          </td>
-          <td>{{ vote.state|capfirst }}</td>
-          <td>{{ vote.time }}</td>
+          <th>Question</th>
+          <th>Trend</th>
+          <th>State</th>
+          <th>Time</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        {% for vote in user_votes %}
+          <tr>
+            <td>{{ vote.question }}</td>
+            <td class="{% if vote.trend == 0 %}red{% elif vote.trend == 1 %}yellow{% else %}green{% endif %}">
+              {% if vote.trend == 0 %}
+                Bad
+              {% elif vote.trend == 1 %}
+                Neutral
+              {% elif vote.trend == 2 %}
+                Good
+              {% else %}
+                Unknown
+              {% endif %}
+            </td>
+            <td>{{ vote.state|capfirst }}</td>
+            <td>{{ vote.time }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p>No votes found for {{ selected_date|date:'Y-m-d' }}.</p>
+{% endif %}
 
 <!-- Initialize Flatpickr -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

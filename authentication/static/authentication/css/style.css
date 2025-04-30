@@ -312,7 +312,7 @@ h1 {    /*font style for h1*/
     font-size: 16px;
     border: 2px solid #C5C5C5;
     border-radius: 5px;
-    width: 30%;
+    width: 50%;
     background-color: #ffffff;
     box-sizing: border-box;
 }
@@ -333,13 +333,18 @@ h1 {    /*font style for h1*/
 
 .box1 { /*first box in the box-container*/
     background-color: #f3f3f3;
-    height: 350px;
+    /* height: 350px; */
 }
 
 
 .box2 { /*second box in the box-container*/
     background-color: #f3f3f3;
-    height: 350px;
+    height: auto;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .box h2 { /*styling for h2 in the box*/

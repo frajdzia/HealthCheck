@@ -29,10 +29,10 @@ def profile(request):
 def team_progress(request):
     user = request.user
     if user.is_authenticated:
-        if hasattr(user, 'profile') and user.profile.role == 'Department Leader':
+        if hasattr(user, 'profile') and user.profile.role == 'department-leader':
             return render(request, 'profiles/teamprogress_DL.html')
         else:
-            return render(request, 'profiles/teamprogress_DL.html')
+            return render(request, 'profiles/teamprogress_SM.html')
     else:
         return redirect('login')
 
