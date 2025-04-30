@@ -15,5 +15,6 @@ urlpatterns =[
         #URL for team progress page
     path('teamprogress_SM/', auth_views.team_progress, name="teamprogress"),
 
+    path('progress/', auth_views.progress_redirect, name='progress'),
 
 ]

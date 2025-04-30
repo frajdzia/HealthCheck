@@ -36,11 +36,12 @@
                 {% if user.is_authenticated and user_role in 'engineer team-leader' %}
                 <a class="nav-link" href="{% url 'summary' %}">Progress</a>
               {% else %}
-                <a class="nav-link" href="{% url 'teamprogress' %}">Progress</a>  <!--URL added by Tracey-->
+                <a class="nav-link" href="{% url 'progress' %}">Progress</a>  <!--URL added by Tracey-->
               {% endif %}
-              </li>
+
+                          </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Help</a>
+                <a class="nav-link" href="{% url 'help' %}">Help</a>
               </li>
             </div>
             <div class="right-align">

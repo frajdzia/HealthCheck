@@ -102,7 +102,10 @@ def dashboard_dispatcher(request):
     else:
         return redirect('dashboard')
 
+def help_view(request):
+    return render(request, 'home/help.html')
 # login_required ensures only authenticated users access views
+
 @login_required
 def home_vote_view(request):
     # if user has selected department and team

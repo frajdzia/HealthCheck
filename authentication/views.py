@@ -6,6 +6,8 @@ from .forms import CustomUserCreationForm, CustomLoginForm, ForgetPasswordForm
 from home.forms import TeamProgressFilterForm
 from django.contrib.auth.models import User
 from home.views import team_progress_summary  # Import the reusable function
+from django.http import HttpResponseForbidden
+
 
 def team_progress(request):         #to view the teamprogress_SM.html if the users role is senior manager
     user = request.user             #getting the user
@@ -99,3 +101,17 @@ def forget_password(request):       #view to handle the forgetpassword.html to r
     return render(request, 'authentication/forgetpassword.html', {'form': form})    #redirects to forgetpassword.html if fails
 
 
+
+def progress_redirect(request): #done by sham line 81 - 93
+    user = request.user
+    if hasattr(user, 'profile'):
+        role = user.profile.role
+        if role in ['engineer', 'team-leader']:
+            return redirect('summary')  # home/urls.py
+        elif role == 'department-leader':
+            return redirect('teamprogress_DL')  # profiles/urls.py 
+        elif role == 'senior-manager':
+            return redirect('teamprogress_SM')  # authentication/urls.py
+        else:
+            return HttpResponseForbidden("Role not allowed.")
+    return redirect('login')

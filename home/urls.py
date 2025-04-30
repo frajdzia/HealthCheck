@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .views import help_view
+
 
 urlpatterns = [
     # dashboard page for engineer & team leader
@@ -16,4 +18,6 @@ urlpatterns = [
 
     # check if user has asigned team & department
     path('home-vote-view/', views.home_vote_view, name='home_vote_view'),
+
+    path('help/', help_view, name='help'),
 ]
