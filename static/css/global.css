@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext");
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap');
 
+
+/* light theme colors */
 :root[data-theme="light"] {
   --text: #061620;
   --background: #f4fafd;
@@ -10,6 +12,8 @@
   --highlight: #8167a9;
   --highlight-rgb: 129, 103, 169;
 }
+
+/* dark theme colors */
 :root[data-theme="dark"] {
   --text: #e1f0f9;
   --background: #02090d;
@@ -18,22 +22,6 @@
   --accent: #2123a6;
   --highlight: #9b89c1;
   --highlight-rgb: 155, 137, 193;
-}
-
-.logo{
-  background: linear-gradient(120deg,var(--primary),var(--accent),var(--highlight));
-  background-clip:  text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-  font-size: 25px;
-  padding: 5px 0 !important;
-  display: inline-block;
-  font-family: "Signika", sans-serif;
-  text-decoration: none;
-}
-
-.logo::selection{
-  background: none;
 }
 
 body {
@@ -73,7 +61,7 @@ body {
 }
 
 .start-header.scroll-on + .main_content {
-  padding-top: calc(24px + 20px); /* Adjusted for scroll-on state */
+  padding-top: calc(24px + 20px); /* scroll-on state */
 }
 
 .navigation-wrap {
@@ -92,6 +80,8 @@ body {
   height: 24px;
 }
 
+
+/* nav bar links */
 .nav-link {
   color: var(--text) !important;
   font-weight: 500;

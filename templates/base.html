@@ -13,11 +13,18 @@
   </head>
   <!-- nav bar -->
   <body class="hero-anime">
+
+    {% comment %} nav bar {% endcomment %}
     <div class="navigation-wrap start-header">
+      
       <nav class="navbar">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
+
+            {% comment %} left side of the nav bar {% endcomment %}
             <div class="left-align">
+
+              {% comment %} home page different for different role {% endcomment %}
               <li class="nav-item">
                 {% if user.is_authenticated and user_role in 'engineer team-leader' %}
                 <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
@@ -29,20 +36,28 @@
                 <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
                 {% endif %}
               </li>
+
+              {% comment %} profile page {% endcomment %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile' %}">Profile</a>
               </li>
+
+              {% comment %} progress page different for different role {% endcomment %}
               <li class="nav-item">
                 {% if user.is_authenticated and user_role in 'engineer team-leader' %}
                 <a class="nav-link" href="{% url 'summary' %}">Progress</a>
               {% else %}
                 <a class="nav-link" href="{% url 'progress' %}">Progress</a>  <!--URL added by Tracey-->
               {% endif %}
+            </li>
 
-                          </li>
+            {% comment %} help page {% endcomment %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'help' %}">Help</a>
               </li>
+
+
+              {% comment %} right side of nav bar {% endcomment %}
             </div>
             <div class="right-align">
               <li>
@@ -53,6 +68,7 @@
                   </div>
                 </div>
               </li>
+              {% comment %} log out {% endcomment %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">Log Out</a> <!--URL added by Tracey-->
               </li>
@@ -61,6 +77,7 @@
         </div>
       </nav>
     </div>
+    
     <!-- block for the main content -->
     <div class="main_content">
       {% block content %}{% endblock %}

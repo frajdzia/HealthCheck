@@ -2,17 +2,23 @@ from django import forms
 from django.utils import timezone  # Correct import for timezone
 from home.models import Department, Team, UserSelection
 
+# team progress filter form
+# used to get the data that the user wants to see on the voting summary
+
 class TeamProgressFilterForm(forms.Form):
+    # department label
     department = forms.ModelChoiceField(
         queryset=Department.objects.all(),
         required=False,
         empty_label="All Departments"
     )
+    # team label
     team = forms.ModelChoiceField(
         queryset=Team.objects.all(),
         required=False,
         empty_label="All Teams"
     )
+    # duration time
     duration = forms.ChoiceField(
         choices=[
             ('', 'All Time'),
@@ -22,19 +28,21 @@ class TeamProgressFilterForm(forms.Form):
         ],
         required=False
     )
+    # date to choose
     date = forms.DateField(
         required=False,
         widget=forms.TextInput(attrs={'class': 'flatpickr'}),
-        initial=timezone.now().date  # Now this will work
+        initial=timezone.now().date 
     )
 
     def __init__(self, *args, **kwargs):
-        # Extract user from kwargs, if provided
+        # Extract user
         user = kwargs.pop('user', None)
         print(f"TeamProgressFilterForm: Initializing with user={user}")
         super(TeamProgressFilterForm, self).__init__(*args, **kwargs)
         self.user = user
 
+# checks the selection - departmwnt team
         if user and hasattr(user, 'profile'):
             role = user.profile.role
             print(f"TeamProgressFilterForm: User role={role}")
@@ -48,14 +56,14 @@ class TeamProgressFilterForm(forms.Form):
 
             # Adjust fields based on role
             if role == 'team-leader':
-                # Team leaders don't need team, department, or date selection
+                # Team leaders don't need team, department as they are alreadysigned to one
                 self.fields.pop('team', None)
                 self.fields.pop('department', None)
                 self.fields.pop('date', None)
                 print("TeamProgressFilterForm: Removed team, department, and date fields for team-leader")
             elif role == 'department-leader':
                 # Department leaders can select teams within their department
-                self.fields.pop('department', None)  # They can't change department
+                self.fields.pop('department', None)  # They cannt change department
                 if selected_department:
                     self.fields['team'].queryset = Team.objects.filter(department=selected_department)
                     print(f"TeamProgressFilterForm: Set team queryset to {self.fields['team'].queryset} for department-leader")
@@ -64,7 +72,7 @@ class TeamProgressFilterForm(forms.Form):
                     print("TeamProgressFilterForm: No selected department, team queryset set to none for department-leader")
             else:  # senior-manager
                 # Senior managers can select both department and team
-                # Dynamically update teams based on selected department
+                #  update teams based on selected department
                 print("TeamProgressFilterForm: Processing for senior-manager")
                 if self.data and 'department' in self.data:
                     try:

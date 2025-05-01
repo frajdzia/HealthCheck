@@ -30,8 +30,11 @@
 
 <form id="voting-form" method="POST">
   {% csrf_token %}
+  {% comment %} if there are any card {% endcomment %}
   {% if cards %}
+  {% comment %} loops through cards {% endcomment %}
     {% for card in cards %}
+    {% comment %} cards form {% endcomment %}
       <div class="card-form" data-card-id="{{ card.id }}">
         <h4>Question: {{ card.question.text }}</h4>
 
@@ -45,6 +48,8 @@
           <!-- Trend Choices -->
           <div class="lights-choice">
             <div class="radio-inputs">
+              {% comment %} loops through 3 trends - r/y/g {% endcomment %}
+              {% comment %} function in js below {% endcomment %}
               {% for value, desc in trend_choices %}
                 <label>
                   <input class="radio-input trend-input" type="radio" name="responses[{{ card.id }}][trend]" value="{{ value }}">
@@ -63,6 +68,7 @@
         <div class="lights-state">
           <h4>How is the state of the value?</h4>
           <div class="radio-inputs">
+            {% comment %} 3 labels as a radio input - declining.improving/stable {% endcomment %}
             <label>
               <input class="radio-input state-input" type="radio" name="responses[{{ card.id }}][state]" value="declining">
               <span class="radio-tile">
@@ -87,19 +93,21 @@
     {% endfor %}
 
 
-    {% comment %} preious next button  {% endcomment %}
+    {% comment %} preious or next button  {% endcomment %}
+    {% comment %} submit one shows at the last page {% endcomment %}
     <div class="navigation">
       <button type="button" class="home-btn" id="prev-btn" disabled>Previous</button>
       <button type="button" class="home-btn" id="next-btn">Next</button>
       <button type="submit" class="home-btn" id="submit-btn" style="display: none;">Submit</button>
     </div>
+    {% comment %} if there are no cards {% endcomment %}
   {% else %}
     <p>No questions available for this team.</p>
   {% endif %}
 </form>
 
 <script>
-  // Traffic Lights Initialization
+  // traffic lights initialization
   function createTrafficLightItem(classes) {
     const li = document.createElement('li');
     li.className = `traffic-lights`;
@@ -108,7 +116,7 @@
     `;
     return li;
   }
-
+{% comment %} light types {% endcomment %}
   const trafficLightsData = [
     { classes: 'red' },
     { classes: 'yellow' },
@@ -122,7 +130,7 @@
     });
   });
 
-  // Navigation and Form Handling
+  // Navigation and form handling
   const cards = document.querySelectorAll('.card-form');
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
@@ -131,13 +139,14 @@
   let currentIndex = 0;
   const responses = {};
 
-  // Initialize: Show the first card
+  // show the first card
   if (cards.length > 0) {
     cards[currentIndex].classList.add('active');
     updateButtons();
   }
 
-  // Navigation functions
+  // navigation functions
+  {% comment %} show card {% endcomment %}
   function showCard(index) {
     cards.forEach(card => card.classList.remove('active'));
     cards[index].classList.add('active');
@@ -145,14 +154,16 @@
     currentCardDisplay.textContent = currentIndex + 1;
     updateButtons();
   }
-
+{% comment %} button update
+first one disabled on the first card
+on the last card submit button instead of next one {% endcomment %}
   function updateButtons() {
     prevBtn.disabled = currentIndex === 0;
     nextBtn.style.display = currentIndex === cards.length - 1 ? 'none' : 'inline-block';
     submitBtn.style.display = currentIndex === cards.length - 1 ? 'inline-block' : 'none';
   }
 
-  // Store responses as the user selects options
+  // stores responses as the user selects options
   document.querySelectorAll('.trend-input, .state-input').forEach(input => {
     input.addEventListener('change', () => {
       const cardId = input.closest('.card-form').dataset.cardId;
@@ -166,16 +177,20 @@
   });
 
   // Navigation button handlers
+
+  {% comment %} previous button not working o first card {% endcomment %}
   prevBtn.addEventListener('click', () => {
     if (currentIndex > 0) showCard(currentIndex - 1);
   });
 
+  {% comment %} checks if both fields have selection on {% endcomment %}
   nextBtn.addEventListener('click', () => {
     const currentCard = cards[currentIndex];
     const cardId = currentCard.dataset.cardId;
     const trendSelected = currentCard.querySelector(`input[name="responses[${cardId}][trend]"]:checked`);
     const stateSelected = currentCard.querySelector(`input[name="responses[${cardId}][state]"]:checked`);
-  
+ 
+    //if no or missing selection
     if (!trendSelected || !stateSelected) {
       alert('Please select both trend and state before moving to the next question.');
       return; // Block navigation

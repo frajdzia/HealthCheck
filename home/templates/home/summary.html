@@ -11,6 +11,7 @@
 {% block content %}
 
 <div class="user-role">
+  {% comment %} shows user role {% endcomment %}
   <h2>{{ user_role|title }} Voting Summary</h2>
 </div>
  {% comment %} showes messages if there are any  {% endcomment %}
@@ -32,15 +33,16 @@
   <button class="home-btn" type="submit">Show Results</button>
 </form>
 
-{% comment %} other role than engineer - team leader 
-as they can see team data
+{% comment %} if team leader - shows the team summary
 {% endcomment %}
 {% if user_role == 'team-leader' %}
+{% comment %} if there is any data to show {% endcomment %}
   {% if session_results %}
     <h3>Team Voting Summary</h3>
     <table class="summary-table">
       <thead>
         <tr>
+          {% comment %} columns headers {% endcomment %}
           <th>Department</th>
           <th>Team</th>
           <th>Question</th>
@@ -51,6 +53,7 @@ as they can see team data
         </tr>
       </thead>
       <tbody>
+        {% comment %} loops through each result {% endcomment %}
         {% for result in session_results %}
           <tr>
             <td>{{ result.department_name }}</td>
@@ -64,6 +67,7 @@ as they can see team data
         {% endfor %}
       </tbody>
     </table>
+    {% comment %} if no sessions available at the chosen day {% endcomment %}
   {% else %}
     <p>No session results available for this date.</p>
   {% endif %}
@@ -74,11 +78,13 @@ as they can see team data
 <br>
 <h3>Your Votes</h3>
 
+{% comment %} if any votes has been made by user at selected day{% endcomment %}
 {% if user_votes %}
   <div class="user-votes">
     <table class="summary-table">
       <thead>
         <tr>
+          {% comment %} headers {% endcomment %}
           <th>Question</th>
           <th>Trend</th>
           <th>State</th>
@@ -86,6 +92,7 @@ as they can see team data
         </tr>
       </thead>
       <tbody>
+        {% comment %} loops through votes for each of the card {% endcomment %}
         {% for vote in user_votes %}
           <tr>
             <td>{{ vote.question }}</td>
@@ -96,6 +103,7 @@ as they can see team data
                 Neutral
               {% elif vote.trend == 2 %}
                 Good
+                {% comment %} unknown in case of error {% endcomment %}
               {% else %}
                 Unknown
               {% endif %}
@@ -107,10 +115,12 @@ as they can see team data
       </tbody>
     </table>
   </div>
+  {% comment %} if no votes found for selected day {% endcomment %}
 {% else %}
   <p>No votes found for {{ selected_date|date:'Y-m-d' }}.</p>
 {% endif %}
 
+{% comment %} for the time  {% endcomment %}
 <!-- Initialize Flatpickr -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>

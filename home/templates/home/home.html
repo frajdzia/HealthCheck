@@ -22,6 +22,7 @@
   {% endif %}
 
   <div class="custom-home-style">
+    {% comment %} shows users role {% endcomment %}
     <h4 class="user-role">Your role: {{ user_role|title }}</h4>
     <p>
       Welcome to Team HealthCheck! Our platform helps you easily track your team’s tasks and
@@ -34,18 +35,23 @@
     {% if has_selection %}
       <div class="selection-info">
         <h3>You have already selected your team and department.</h3>
+        {% comment %} shows teir department and team {% endcomment %}
         <p><strong>Department:</strong> {{ department.name }}</p>
         <p><strong>Team:</strong> {{ team.team_name }}</p>
+        {% comment %} let them to go to voting page {% endcomment %}
         <form method="POST" action="{% url 'dashboard' %}">
           {% csrf_token %}
           <button class="home-btn" type="submit">Continue</button>
         </form>
       </div>
+
       {% comment %} if they did not select anything {% endcomment %}
     {% else %}
       <h3>Select the department and team you are assigned to.</h3>
+      {% comment %} lets them select their department and team within the department {% endcomment %}
       <form method="POST" action="{% url 'dashboard' %}" class="select-form">
         {% csrf_token %}
+
         {% comment %} department selection  {% endcomment %}
         <div class="select-wrapper">
           <label for="department">Department:</label>
@@ -60,6 +66,7 @@
           </svg>
         </div>
         <br>
+
         {% comment %} team selection  {% endcomment %}
         <div class="select-wrapper">
         <label for="team">Team:</label>
@@ -77,11 +84,16 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 {% comment %} script to manage selection  {% endcomment %}
+
+{% comment %} if did not select before {% endcomment %}
   {% if not has_selection %}
   <script>
+    {% comment %} gets department {% endcomment %}
     $('#department').change(function() {
       let deptId = $(this).val();
+      //if department selected allow to choose the team within it
       if (deptId) {
         $.getJSON("{% url 'get_teams' %}", { department_id: deptId }, function(data) {
           let teamSelect = $('#team');

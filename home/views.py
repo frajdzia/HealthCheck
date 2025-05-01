@@ -1,4 +1,3 @@
-from collections import defaultdict
 from django.http import JsonResponse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -6,38 +5,28 @@ from django.shortcuts import redirect, render
 from .models import Team, Question, Card, Session, Vote, Department, UserSelection
 from authentication.models import Profile
 from django.contrib import messages
-from django.db.models import Count
-from django.db.models import F
 from django.utils import timezone
-from .utils import save_unique_vote, get_team_summary
+from .utils import get_team_summary
 from datetime import timedelta
 from home.forms import TeamProgressFilterForm
 
-# Reusable function to fetch team progress summaries based on role
+# fetch team progress summaries based on role 
 def team_progress_summary(user, role, form=None, selected_date=None):
-    """
-    Fetches team voting summaries based on user role and filters.
-    Args:
-        user: The authenticated user.
-        role: The user's role ('team-leader', 'department-leader', 'senior-manager').
-        form: TeamProgressFilterForm instance for filtering (optional).
-        selected_date: The date to filter votes (default: today).
-    Returns:
-        Tuple of (team_summary, selected_date, form, template_name).
-    """
-    print(f"team_progress_summary: user={user.username}, role={role}, selected_date={selected_date}")
+    
+    # print(f"team_progress_summary: user={user.username}, role={role}, selected_date={selected_date}") - for testing
+    
     if not selected_date:
         selected_date = timezone.now().date()
-        print(f"team_progress_summary: defaulted selected_date to {selected_date}")
+        # print(f"team_progress_summary: defaulted selected_date to {selected_date}") - for testing
 
     # Initialize form if not provided, pass the user to the form
     if form is None:
         form = TeamProgressFilterForm(user=user)
-        print("team_progress_summary: form initialized")
+        # print("team_progress_summary: form initialized")- for testing
 
-    # Fetch team summary based on role
+    # team summary based on role
     team_summary = get_team_summary(user, role, selected_date)
-    print(f"team_progress_summary: team_summary={team_summary}")
+    # print(f"team_progress_summary: team_summary={team_summary}") - for testing
 
     # Apply filters based on role and form input
     if form.is_bound and form.is_valid():
@@ -46,13 +35,13 @@ def team_progress_summary(user, role, form=None, selected_date=None):
         department = form.cleaned_data.get('department')
         duration = form.cleaned_data.get('duration')
         date = form.cleaned_data.get('date')
-        print(f"team_progress_summary: form data - team={team}, department={department}, duration={duration}, date={date}")
+        # print(f"team_progress_summary: form data - team={team}, department={department}, duration={duration}, date={date}") - for testing
 
         # Apply date filter if provided
         if date:
             selected_date = date
             team_summary = get_team_summary(user, role, selected_date)
-            print(f"team_progress_summary: applied date filter, new selected_date={selected_date}, team_summary={team_summary}")
+            # print(f"team_progress_summary: applied date filter, new selected_date={selected_date}, team_summary={team_summary}") - for testing
 
         # Apply duration filter (takes precedence over date if both are provided)
         if duration:
@@ -60,34 +49,42 @@ def team_progress_summary(user, role, form=None, selected_date=None):
             date_from = timezone.now().date() - timedelta(days=days)
             selected_date = date_from
             team_summary = get_team_summary(user, role, selected_date)
-            print(f"team_progress_summary: applied duration filter, new selected_date={selected_date}, team_summary={team_summary}")
+            # print(f"team_progress_summary: applied duration filter, new selected_date={selected_date}, team_summary={team_summary}") - for testing
 
-        # Apply team and department filters
+        # apply team and department filters
         if team or department:
             filtered_summary = []
             for result in team_summary:
-                # Skip if team filter is set and doesn't match (case-insensitive)
+                # skip if team filter is set and doesnt match
                 if team and result['team_name'].strip().lower() != team.team_name.strip().lower():
-                    print(f"team_progress_summary: Excluded team - result.team_name={result['team_name']}, filter.team_name={team.team_name}")
+                    # print(f"team_progress_summary: Excluded team - result.team_name={result['team_name']}, filter.team_name={team.team_name}") - for testing
                     continue
-                # Skip if department filter is set and doesn't match (case-insensitive)
+                # skip if department filter is set and doesn't match
                 if department and result['department_name'].strip().lower() != department.name.strip().lower():
-                    print(f"team_progress_summary: Excluded department - result.department_name={result['department_name']}, filter.department_name={department.name}")
+                    # print(f"team_progress_summary: Excluded department - result.department_name={result['department_name']}, - for testing
+                        #   filter.department_name={department.name}") - continuation as it is a bit long
                     continue
                 filtered_summary.append(result)
             team_summary = filtered_summary
-            print(f"team_progress_summary: applied team/department filters, team_summary={team_summary}")
+            # print(f"team_progress_summary: applied team/department filters, team_summary={team_summary}") - testing
 
     # Determine the template based on role
+    
+    # team leader
     if role == 'team-leader':
-        template_name = 'home/summary.html'  # Team leaders use the summary page
+        template_name = 'home/summary.html'
+        
+    # department leader
     elif role == 'department-leader':
         template_name = 'reports/teamprogress_DL.html'
-    else:  # senior-manager
+        
+    # senior-manager 
+    else:  
         template_name = 'authentication/teamprogress_SM.html'
-    print(f"team_progress_summary: template_name={template_name}")
+    # print(f"team_progress_summary: template_name={template_name}") - testing again
 
-    return team_summary, selected_date, form, template_name
+    return team_summary, selected_date, form, template_name 
+
 
 # Dispatcher view to route to the appropriate dashboard based on role
 @login_required
@@ -132,7 +129,7 @@ def home_vote_view(request):
         'has_selection': False
     })
 
-# Fetches teams
+# get teams
 def get_teams(request):
     # department_id from GET request
     department_id = request.GET.get('department_id')
@@ -140,19 +137,22 @@ def get_teams(request):
     # Returns JSON list of teams
     return JsonResponse(list(teams), safe=False)
 
-# Main dashboard view for engineers and team leaders
+#  dashboard for engineers and team leaders
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
     user_role = profile.role
 
-    # Redirect Senior Managers and Department Leaders to their dashboards
+    # redirect Senior Managers and Department Leaders to their dashboards
+    # senior manager one
     if user_role == 'senior-manager':
         return redirect('dashboard_SM')
+    # department leader one
     elif user_role == 'department-leader':
         return redirect('dashboard_DL')
 
     # Checks if user has a saved department/team selection
+    # in case not there is a fucntion that lets them to make a one time choice
     try:
         user_selection = UserSelection.objects.get(user=request.user)
         has_selection = user_selection.department is not None and user_selection.team is not None
@@ -172,17 +172,19 @@ def dashboard(request):
         # Redirects to voting page with session ID
         return redirect('voting', session_id=session.id)
 
-    # saves new department/team
+    # saves new department/team selection
     if request.method == 'POST' and not has_selection:
         dept_id = request.POST.get('department')
         team_id = request.POST.get('team')
 
+    # redirecting to voting page 
+    # check if user has the team and department assigned  
         if dept_id and team_id:
             try:
                 department = Department.objects.get(id=dept_id)
                 team = Team.objects.get(id=team_id)
 
-                # Create or update selection
+                # Create or update team/department selection
                 if not user_selection:
                     user_selection = UserSelection.objects.create(user=request.user, department=department, team=team)
                 else:
@@ -190,22 +192,24 @@ def dashboard(request):
                     user_selection.team = team
                     user_selection.save()
 
-                # Start new voting session
+                # Start new voting session if successful
                 session, _ = Session.objects.get_or_create(
                     team=team,
                     date=timezone.now(),
                     defaults={'is_finished': False}
                 )
 
-                # Success message for user
+                # Success message
+                # redirect to the voting page abput their team
                 messages.success(request, "Your department and team have been successfully selected.")
                 return redirect('voting', session_id=session.id)
 
             except (Department.DoesNotExist, Team.DoesNotExist):
                 # Invalid selection message
                 messages.error(request, "Invalid department or team.")
+                
+# If there is missing data/teams/departments selection
         else:
-            # Missing data message
             messages.error(request, "Please select both department and team.")
 
     # dashboard with selection state
@@ -231,11 +235,14 @@ def voting(request, session_id):
         session = Session.objects.get(id=session_id, is_finished=False)
         team = session.team
     except Session.DoesNotExist:
-        # Session invalid? back to dashboard
+        # back to dashboard if invalid voting session
         messages.error(request, "Session not found or already finished.")
         return redirect('dashboard_dispatcher')
     
     # Loads all questions for voting cards
+    # one per page
+    # user can go back with the cards and further
+    # has to make the both trend and state choice - done in html file
     questions = Question.objects.all()
     cards = []
     for question in questions:
@@ -257,7 +264,7 @@ def voting(request, session_id):
         expected_cards = len(cards)
         card_ids = {card.id for card in cards}
         
-        # Loops through each card’s vote
+        # Loops through each cards vote
         for card_id in card_ids:
             try:
                 card_id_str = str(card_id)
@@ -272,7 +279,7 @@ def voting(request, session_id):
                     continue
                 
                 card = Card.objects.get(id=card_id, team=team)
-                # Saves or updates user’s vote
+                # Saves vote
                 Vote.objects.update_or_create(
                     user=request.user,
                     card=card,
@@ -282,8 +289,8 @@ def voting(request, session_id):
                 results[str(card.question.id)] = {'trend': int(trend), 'state': state}
                 processed_cards += 1
                 print(f"Saved vote for card {card_id}")
+                
             except (Card.DoesNotExist, ValueError, IndexError) as e:
-                # Logs errors for debugging
                 print(f"Error processing card {card_id}: {e}")
                 continue
         

@@ -1,14 +1,10 @@
 from django.utils import timezone
 from django.db.models import Count
-from home.models import Vote, Card, UserSelection, Team
-from authentication.models import Profile
+from home.models import Vote, UserSelection
 import datetime  # Import datetime to use datetime.date
 
+# Saves or updates a vote for a user in a session
 def save_unique_vote(user, card, session, trend, state):
-    """
-    Saves or updates a vote for a user in a session, ensuring uniqueness.
-    Returns the Vote object.
-    """
     vote, created = Vote.objects.update_or_create(
         user=user,
         card=card,
@@ -17,21 +13,14 @@ def save_unique_vote(user, card, session, trend, state):
     )
     return vote
 
+#    maps a trend value to a color
 def get_trend_color(trend):
-    """
-    Maps a trend value to a color.
-    Args:
-        trend (int): The trend value (0, 1, 2).
-    Returns:
-        str: The corresponding color ("Red", "Yellow", "Green").
-    """
+
+    # The trend value 0 - 2 : red yellow green
     return {0: "Red", 1: "Yellow", 2: "Green"}.get(trend, "Yellow")
 
 def get_team_summary(user, role, selected_date):
-    """
-    Fetches a summary of team voting results based on user role and date.
-    Returns a list of dictionaries with team voting summaries.
-    """
+    #  Returns team voting summary
     print(f"get_team_summary: user={user.username}, role={role}, selected_date={selected_date}")
     # Ensure selected_date is a datetime.date object
     if isinstance(selected_date, str):
@@ -107,7 +96,7 @@ def get_team_summary(user, role, selected_date):
     summary = []
     team_entries = {}
 
-    # First pass: Aggregate counts for each team-question pair
+    # counts for each team question and its values
     for entry in vote_summary:
         team_name = entry['card__team__team_name']
         department_name = entry['card__team__department__name']
@@ -118,7 +107,7 @@ def get_team_summary(user, role, selected_date):
 
         print(f"get_team_summary: Processing vote entry - team={team_name}, dept={department_name}, question={question}, trend={trend}, state={state}, count={count}")
 
-        # Create a unique key for this team-question pair
+        # unique key for the question
         key = (team_name, question)
 
         if key not in team_entries:
@@ -132,7 +121,7 @@ def get_team_summary(user, role, selected_date):
                 'state_counts': {},
             }
 
-        # Update trend counts
+        # update trend counts
         if trend == 0:
             team_entries[key]['red_count'] += count
         elif trend == 1:
@@ -140,12 +129,12 @@ def get_team_summary(user, role, selected_date):
         elif trend == 2:
             team_entries[key]['green_count'] += count
 
-        # Update state counts
+        # update state counts
         team_entries[key]['state_counts'][state] = team_entries[key]['state_counts'].get(state, 0) + count
 
-    # Second pass: Determine the most common trend and state for each team-question pair
+    # Determine most common trend and state for each question
     for key, data in team_entries.items():
-        # Determine the most common trend
+        # most common trend
         trend_counts = {
             0: data['red_count'],
             1: data['yellow_count'],
@@ -154,11 +143,11 @@ def get_team_summary(user, role, selected_date):
         most_common_trend = max(trend_counts.items(), key=lambda x: x[1])[0] if any(trend_counts.values()) else 1  # Default to yellow if no votes
         trend_color = get_trend_color(most_common_trend)
 
-        # Determine the most common state
+        # most common state
         state_counts = data['state_counts']
         most_common_state = max(state_counts.items(), key=lambda x: x[1])[0] if state_counts else 'stable'
 
-        # Create the final entry
+        # final entry
         entry = {
             'team_name': data['team_name'],
             'department_name': data['department_name'],
@@ -172,5 +161,4 @@ def get_team_summary(user, role, selected_date):
         }
         summary.append(entry)
 
-    print(f"get_team_summary: final summary={summary}")
     return summary

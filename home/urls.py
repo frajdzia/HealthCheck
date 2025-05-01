@@ -19,5 +19,6 @@ urlpatterns = [
     # check if user has asigned team & department
     path('home-vote-view/', views.home_vote_view, name='home_vote_view'),
 
+    # help section
     path('help/', help_view, name='help'),
 ]

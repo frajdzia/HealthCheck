@@ -1,5 +1,6 @@
 (function($) { "use strict";
 
+	// if scroll then nav bar issmaller
 	$(function() {
 	  var header = $(".start-style");
 	  $(window).scroll(function() {    
@@ -12,23 +13,25 @@
 	  });
 	});		
 	
-	// Animation and Theme Initialization
+	// Animation and theme
 	$(document).ready(function() {
   
-	  // Load saved theme or default to light
+	  // Load saved theme
 	  var savedTheme = localStorage.getItem('theme');
 	  if (savedTheme) {
 		$("html").attr("data-theme", savedTheme);
 		if (savedTheme === "dark") {
 		  $("#switch").addClass("switched");
 		}
-	  } else {
+	  } 
+	  	// default - light
+	  else {
 		$("html").attr("data-theme", "light");
 		localStorage.setItem('theme', 'light');
 	  }
 	});
   
-	// Menu On Hover
+	// Menu on hover
 	$('body').on('mouseenter mouseleave','.nav-item',function(e){
 	  if ($(window).width() > 750) {
 		var _d=$(e.target).closest('.nav-item');_d.addClass('show');
